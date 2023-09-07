@@ -84,4 +84,6 @@ Foreign key ile:
 -Veri kalitesi sağlanır.
 -Veri normalizasyonu sağlanır.
 
+![foreign-keys-example](https://github.com/handecavsi/SQL-modul/assets/34586454/0e8e4f83-7170-462d-9392-7e073f97937b)
+
 
