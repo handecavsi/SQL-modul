@@ -64,3 +64,24 @@ Bir gönderinin zaman damgasını saklamak için TIMESTAMP veri tipi kullanabili
 SQL veritabanlarında, array veri tipleri bir dizi (koleksiyon) içinde birden çok veriyi saklamak için kullanılır. Array veri tipleri, bir kolon içinde birden çok 
 veriyi saklamak için kullanılabilir ve genellikle bir tablo içinde bir kullanıcının birden çok özelliğini saklayabilir. Örneğin bir web sitesindeki kullanıcının 
 bir veya birden çok telefon numarasını saklamak için array veri tipi kullanılabilir.
+
+
+**2.Veri Tabanlarında Anahtar (Key) Kavramı**
+
+İlişkisel veritabanları, verileri saklamak ve sorgulamak için SQL (Structured Query Language) kullanır. Veritabanlarında oluşturduğumuz tablonun bir diğer tablo ile ilişki kurabilmesi için anahtar kavramını anlamak gerekir. 
+
+-_Primary Key (Birincil Anahtar)_
+
+Primary Key (Birincil Anahtar) bir veri tabanında bir tablo içerisindeki her bir kaydı benzersiz bir şekilde tanımlamak için kullanılan bir anahtardır. Birincil anahtar, tablodaki diğer anahtarlar primary key'den referans alır. 
+
+-_Foreign Key (Yabancı Anahtar)_
+
+Foreign Key (Yabancı Anahtar) SQL'de bir başka tablonun birincil anahtarına bağlantı kurmak için kullanılan anahtardır. Foreign key, ilişkisel veri tabanlarında tablolar arasında ilişki tanımlamak için kullanılır.
+
+Foreign key ile:
+-Veri tabanındaki tablolar arasında ilişki kurulur.
+-Veri güvenliği sağlanır.
+-Veri kalitesi sağlanır.
+-Veri normalizasyonu sağlanır.
+
+
