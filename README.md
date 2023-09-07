@@ -84,6 +84,5 @@ Foreign key ile:
 - Veri kalitesi sağlanır.
 - Veri normalizasyonu sağlanır.
 
-
-
+![foreign-key-simple-mysql](https://github.com/handecavsi/SQL-modul/assets/34586454/b30f0bd5-18cf-480a-b9d4-0d4f2cc6c7fc)
 
