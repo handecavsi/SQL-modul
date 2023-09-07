@@ -79,11 +79,11 @@ Primary Key (Birincil Anahtar) bir veri tabanında bir tablo içerisindeki her b
 Foreign Key (Yabancı Anahtar) SQL'de bir başka tablonun birincil anahtarına bağlantı kurmak için kullanılan anahtardır. Foreign key, ilişkisel veri tabanlarında tablolar arasında ilişki tanımlamak için kullanılır.
 
 Foreign key ile:
--Veri tabanındaki tablolar arasında ilişki kurulur.
--Veri güvenliği sağlanır.
--Veri kalitesi sağlanır.
--Veri normalizasyonu sağlanır.
+- Veri tabanındaki tablolar arasında ilişki kurulur.
+- Veri güvenliği sağlanır.
+- Veri kalitesi sağlanır.
+- Veri normalizasyonu sağlanır.
 
-![foreign-keys-example](https://github.com/handecavsi/SQL-modul/assets/34586454/0e8e4f83-7170-462d-9392-7e073f97937b)
+
 
 
