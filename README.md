@@ -2,7 +2,7 @@
 SQL Training
 
 
-#**SQL DATA TYPES**
+**1.SQL DATA TYPES**
 
 **Metinsel (String) Veri Tipleri**
 
