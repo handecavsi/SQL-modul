@@ -107,21 +107,21 @@ test_db isimli bir database oluşturmak ve bu database'de bir tablo tanımlamak 
 
 create database test_db; 
 
-create table ogrenci <br/>
-( <br/>
-  id integer, <br/>
-  isim varchar(30), <br/>
-  soyisim varchar(30), <br/>
-  primary key (id) <br/>
+create table ogrenci < br >
+( < br >
+  id integer, < br >
+  isim varchar(30), < br >
+  soyisim varchar(30), < br >
+  primary key (id) < br >
 
 )
 
-create table ders <br/>
-( <br/>
-  id integer primary key, <br/>
-  name varchar(30), <br/>
-  ogrenci_id integer <br/>
-  foreign key (pgrenci_id) references ogrenci(id) <br/>
+create table ders < br >
+( < br >
+  id integer primary key, < br >
+  name varchar(30), < br >
+  ogrenci_id integer < br >
+  foreign key (pgrenci_id) references ogrenci(id) < br >
 )
 
 -_ALTER/DROP Komutu_
