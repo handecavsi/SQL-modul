@@ -95,5 +95,34 @@ SQL'de, CREATE komutu veritabanı veya tablolarda yeni bir tablo oluşturmak iç
 
 Tablo oluşturmak için genel kullanım şekli şöyledir:
 
+CREATE TABLE tablo_ismi (
 
+kolon1_ismi veri_tipi,
+
+. . .
+
+);
+
+test_db isimli bir database oluşturmak ve bu database'de bir tablo tanımlamak için aşağıdaki işlemler yapılır;
+
+create database test_db; 
+
+create table ogrenci 
+(
+  id integer,
+  isim varchar(30),
+  soyisim varchar(30),
+  primary key (id)
+
+)
+
+create table ders 
+(
+  id integer primary key,
+  name varchar(30),
+  ogrenci_id integer
+  foreign key (pgrenci_id) references ogrenci(id)
+)
+
+-_ALTER/DROP Komutu_
 
