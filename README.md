@@ -304,49 +304,49 @@ _CASE WHEN EXPRESSION_
 
 - "CASE WHEN" SQL'de koşul ifadesi ile kullanılan bir kontrol yapısıdır.  Bu ifade, belirli bir koşulu test etmenizi ve koşulun doğru veya yanlış olmasına bağlı olarak farklı bir değer veya ifade döndürmenizi sağlar.
 
-CASE <br><br/>
+      CASE 
 
-    WHEN condition1 THEN result1 <br><br/>
+      WHEN condition1 THEN result1 
 
-    WHEN condition2 THEN result2 <br><br/>
+      WHEN condition2 THEN result2 
 
-    ... <br><br/>
+      ... 
 
-    ELSE result <br><br/>
+      ELSE result 
 
-END
+      END
 
 Örnek olarak, bir "customers" tablosunda "city" sütunu bulunuyor ve müşterilerin yaşadıkları şehirleri sorgulamak istiyoruz. Aynı zamanda, bazı müşterilerin yaşadıkları şehirlerin yanlış yazıldığı fark ediliyor. Bu durumda, aşağıdaki örnek SQL sorgusu ile müşterilerin doğru şehirlerini elde edebiliriz:
 
-SELECT <br><br/>
+    SELECT 
 
-    customer_name, <br><br/>
+    customer_name, 
 
-    CASE <br><br/>
+    CASE 
 
-        WHEN city = 'Istanbl' THEN 'Istanbul' <br><br/>
+        WHEN city = 'Istanbl' THEN 'Istanbul' 
 
-        WHEN city = 'Ankra' THEN 'Ankara' <br><br/>
+        WHEN city = 'Ankra' THEN 'Ankara'
 
-        ELSE city <br><br/>
+        ELSE city 
 
-    END AS city_corrected  <br><br/>
+    END AS city_corrected  
 
-FROM customers;
+    FROM customers;
 
 Örneğin, bir müşteri veritabanında, bir müşterinin ülkesine göre farklı vergi oranları uygulanması gerekiyorsa, "CASE WHEN" ifadesi kullanılabilir. Aşağıdaki örnek, bir müşterinin ülkesine göre farklı vergi oranları uygulayan bir sorgudur:
 
-SELECT name, country, <br><br/>
+    SELECT name, country, 
 
-       CASE WHEN country = 'USA' THEN price * 0.08 <br><br/>
+       CASE WHEN country = 'USA' THEN price * 0.08 
 
-            WHEN country = 'Canada' THEN price * 0.10 <br><br/>
+            WHEN country = 'Canada' THEN price * 0.10 
 
-            ELSE price * 0.12 <br><br/>
+            ELSE price * 0.12 
 
-       END AS tax <br><br/>
+       END AS tax 
 
-FROM customers;
+    FROM customers;
 
 _OTHER CLAUSES (ORDER BY, AS, LIMIT, DISTINCT, HAVING)_
 
