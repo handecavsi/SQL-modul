@@ -233,10 +233,75 @@ _STRING FUNCTIONS (Metinsel Fonksiyonlar)_
 - Bu fonksiyonlar, SQL sorgularında kullanılan WHERE, SELECT, ORDER BY ve GROUP BY gibi ifadelerde sıklıkla kullanılırlar. Örneğin, bir tablodaki bir sütunun değerini kesmek veya birleştirmek, bir karakter dizisinde belirli bir alt dizenin konumunu bulmak veya belirli bir harf veya harf dizisini içeren tüm değerleri seçmek gibi işlemler için kullanılabilirler.
 - Metinsel fonksiyonlar, verilerin manipülasyonunu daha kolay hale getirerek verilerin analiz edilmesini ve raporlanmasını kolaylaştırır. Ayrıca, birçok programlama dili ve veritabanı yönetim sistemi, metinsel fonksiyonlar da dahil olmak üzere string işleme için çeşitli fonksiyonlar sağlamaktadır.
 
-<span style="text-decoration:underline;">CONCAT</span>
+*CONCAT*
 
--PostgreSQL'de CONCAT()  fonksiyonu, verilen iki veya daha fazla dizeyi birleştirerek tek bir dize oluşturur. Fonksiyonun kullanımı şu şekildedir:
+- PostgreSQL'de CONCAT()  fonksiyonu, verilen iki veya daha fazla dizeyi birleştirerek tek bir dize oluşturur. Fonksiyonun kullanımı şu şekildedir:
 
 SELECT concat(first_name, ' ', last_name) as full_name FROM employees;
+
+- Concat fonksiyonu, özellikle metinleri birleştirmek gerektiği durumlarda kullanışlıdır. Ayrıca, concat fonksiyonu yerine || operatörü de kullanılabilir. Bu operatör de aynı şekilde iki dizeyi birleştirir:
+
+string1 || string2
+
+*LEFT*
+
+- LEFT()  fonksiyonu, verilen bir dizenin belirli bir sayıda sol karakterini döndürür. Fonksiyonun kullanımı şu şekildedir:
+
+SELECT left(first_name, 3) as initial FROM employees; ---first_name sütunundan veri alır ve ilk üç karakterini döndürür.
+
+*RIGHT*
+
+- RIGHT fonksiyonu, verilen bir dizenin belirli bir sayıda sağ karakterini döndürür. Fonksiyonun kullanımı şu şekildedir:
+
+SELECT right(phone_number, 4) as last_four_digits FROM employees; --phone sütunundan veri alır ve son dört karakterini döndürür.
+
+*LENGTH*
+
+- LENGTH() fonksiyonu, bir karakter dizisinin uzunluğunu döndüren bir fonksiyondur. Yani, bu fonksiyon bir karakter dizisindeki karakterlerin sayısını sayar.
+
+SELECT length(first_name), first_name FROM employees; --first_name'in karakter uzunluğunu verir. 
+
+*LOWER*
+
+- PostgreSQL'de LOWER() fonksiyonu, bir karakter dizisindeki tüm karakterleri küçük harflere dönüştürür.
+
+SELECT LOWER(first_name), LOWER(last_name) FROM employees;
+
+*UPPER*
+
+- PostgreSQL'de UPPER() fonksiyonu, bir karakter dizisindeki tüm karakterleri büyük harflere dönüştürür.
+
+SELECT UPPER(first_name) AS first_name_upper, UPPER(last_name) AS last_name_upper FROM employees ORDER BY last_name_upper, first_name_upper;
+
+*TRIM*
+
+- PostgreSQL'de TRIM() fonksiyonu, bir karakter dizisindeki boşlukları, belirtilen karakterleri veya karakter dizisini kırparak temizler."LEADING", "TRAILING" ve "BOTH" parametreleri, bu karakterleri nereden kaldıracağını belirtir.
+
+TRIM([LEADING | TRAILING | BOTH] trim_character FROM string)
+
+Örnekler:
+
+SELECT TRIM('   hello   '); -- "hello"
+SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234"
+SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello"
+SELECT TRIM(BOTH ' ' FROM '   hello   '); -- "hello"
+
+*REPLACE*
+
+- PostgreSQL'deki REPLACE() fonksiyonu, bir karakter dizisinde belirli bir karakter dizisini bulur ve onu başka bir karakter dizisiyle değiştirir.
+
+SELECT REPLACE(first_name, 'a', 'o'), REPLACE(last_name, 'a', 'o') FROM employees; --Tüm çalışanların isimlerindeki "a" harfini "o" harfi ile değiştirir.
+
+SELECT REPLACE(email, 'sqltutorial.org', 'yahoo.com') FROM employees; -- e-posta adreslerindeki "sqltutorial.org" uzantısını "yahoo.com" ile  değiştirir.
+
+*SPLIT PART*
+
+- PostgreSQL'deki SPLIT_PART() fonksiyonu, bir karakter dizisini belirli bir ayraç karakterine göre parçalar ve parçalardan birini seçer.
+
+SELECT SPLIT_PART(email, '@', 1) AS username FROM employees; --employees tablosundaki email adreslerini @ işaretini baz alarak iki parçaya ayırır ve 1. parçayı seçer. Böylece mail adreslerindeki ilk kısım kullanıcı adı olarak belirlenir. 
+
+_Case When_
+
+
 
 
