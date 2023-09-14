@@ -225,6 +225,6 @@ SELECT ad, soyad FROM calisanlar WHERE yas > 30 --yaşı 30'dan büyük olan ça
 SQL Pratikleri yapmak için kullanışlı bir link: https://www.hackerrank.com/domains/sql
 
 
-
+**4.String Functions & Case When & Other Clauses**
 
 
