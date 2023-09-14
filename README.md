@@ -227,4 +227,16 @@ SQL Pratikleri yapmak için kullanışlı bir link: https://www.hackerrank.com/d
 
 **4.String Functions & Case When & Other Clauses**
 
+_STRING FUNCTIONS (Metinsel Fonksiyonlar)_
+
+- SQL'de string fonksiyonlar, karakter dizisi (string) verileri üzerinde işlemler yapmak için kullanılan işlevlerdir. Bu fonksiyonlar, string verilerini manipüle etmek, dönüştürmek veya karşılaştırmak için kullanılabilirler.
+- Bu fonksiyonlar, SQL sorgularında kullanılan WHERE, SELECT, ORDER BY ve GROUP BY gibi ifadelerde sıklıkla kullanılırlar. Örneğin, bir tablodaki bir sütunun değerini kesmek veya birleştirmek, bir karakter dizisinde belirli bir alt dizenin konumunu bulmak veya belirli bir harf veya harf dizisini içeren tüm değerleri seçmek gibi işlemler için kullanılabilirler.
+- Metinsel fonksiyonlar, verilerin manipülasyonunu daha kolay hale getirerek verilerin analiz edilmesini ve raporlanmasını kolaylaştırır. Ayrıca, birçok programlama dili ve veritabanı yönetim sistemi, metinsel fonksiyonlar da dahil olmak üzere string işleme için çeşitli fonksiyonlar sağlamaktadır.
+
+___CONCAT___
+
+-PostgreSQL'de CONCAT()  fonksiyonu, verilen iki veya daha fazla dizeyi birleştirerek tek bir dize oluşturur. Fonksiyonun kullanımı şu şekildedir:
+
+SELECT concat(first_name, ' ', last_name) as full_name FROM employees;
+
 
