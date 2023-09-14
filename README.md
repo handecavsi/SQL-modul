@@ -300,8 +300,54 @@ SELECT REPLACE(email, 'sqltutorial.org', 'yahoo.com') FROM employees; -- e-posta
 
 SELECT SPLIT_PART(email, '@', 1) AS username FROM employees; --employees tablosundaki email adreslerini @ işaretini baz alarak iki parçaya ayırır ve 1. parçayı seçer. Böylece mail adreslerindeki ilk kısım kullanıcı adı olarak belirlenir. 
 
-_Case When_
+_CASE WHEN EXPRESSION_
 
+- "CASE WHEN" SQL'de koşul ifadesi ile kullanılan bir kontrol yapısıdır.  Bu ifade, belirli bir koşulu test etmenizi ve koşulun doğru veya yanlış olmasına bağlı olarak farklı bir değer veya ifade döndürmenizi sağlar.
 
+CASE <br><br/>
+
+    WHEN condition1 THEN result1 <br><br/>
+
+    WHEN condition2 THEN result2 <br><br/>
+
+    ... <br><br/>
+
+    ELSE result <br><br/>
+
+END
+
+Örnek olarak, bir "customers" tablosunda "city" sütunu bulunuyor ve müşterilerin yaşadıkları şehirleri sorgulamak istiyoruz. Aynı zamanda, bazı müşterilerin yaşadıkları şehirlerin yanlış yazıldığı fark ediliyor. Bu durumda, aşağıdaki örnek SQL sorgusu ile müşterilerin doğru şehirlerini elde edebiliriz:
+
+SELECT <br><br/>
+
+    customer_name, <br><br/>
+
+    CASE <br><br/>
+
+        WHEN city = 'Istanbl' THEN 'Istanbul' <br><br/>
+
+        WHEN city = 'Ankra' THEN 'Ankara' <br><br/>
+
+        ELSE city <br><br/>
+
+    END AS city_corrected  <br><br/>
+
+FROM customers;
+
+Örneğin, bir müşteri veritabanında, bir müşterinin ülkesine göre farklı vergi oranları uygulanması gerekiyorsa, "CASE WHEN" ifadesi kullanılabilir. Aşağıdaki örnek, bir müşterinin ülkesine göre farklı vergi oranları uygulayan bir sorgudur:
+
+SELECT name, country, <br><br/>
+
+       CASE WHEN country = 'USA' THEN price * 0.08 <br><br/>
+
+            WHEN country = 'Canada' THEN price * 0.10 <br><br/>
+
+            ELSE price * 0.12 <br><br/>
+
+       END AS tax <br><br/>
+
+FROM customers;
+
+_OTHER CLAUSES (ORDER BY, AS, LIMIT, DISTINCT, HAVING)_
 
 
