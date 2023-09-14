@@ -129,3 +129,102 @@ create table ders <br></br>
 - SQL'de, ALTER komutu veritabanı veya tablolarda mevcut olan tablonun yapısını veya özelliklerini değiştirmek için kullanılır. Genel olarak ALTER komutu ile tablolara kolon ekleme, kolon silme, kolon ismini değiştirme, kolon veri tipini değiştirme, constraint ekleme veya silme gibi işlemler yapılabilir. 
 
 - SQL'de, DROP komutu veritabanı veya tablolarda mevcut olan tablo, index, view, procedure, trigger, sequence, synonym, domain, role, constraint gibi veritabanı objelerini silmek için kullanılır.
+
+ALTER KUllanım Örnekleri:
+
+ALTER TABLE calisanlar ADD COLUMN cinsiyet VARCHAR(10) ---calisanlar tablosuna cinsiyet isimli kolon ekler.
+ALTER TABLE calisanlar DROP COLUMN cinsiyet ---calisanlar tablosundan cinsiyet isimli kolonu siler. 
+ALTER TABLE calisanlar RENAME COLUMN ad TO isim ---calisanlar tablosunda ad isimli sütunu isim olarak değiştirir.
+
+ALTER komutu sadece tablolara değil aynı zamanda veritabanlarına da uygulanabilir. Örneğin;
+
+ALTER DATABASE veritabani_ismi SET default_character_set = utf8
+
+DROP Kullanım Örnekleri:
+
+DROP TABLE table_name;
+
+DROP INDEX index_name;
+
+DROP VİEW view_name;
+
+DROP PROCEDURE procedure_name;
+
+DROP TRIGGER trigger_name;
+
+DROP SEQUENCE sequence_name;
+
+DROP SYNONYM synonym_name;
+
+DROP DOMAIN domain_name;
+
+DROP ROLE role_name;
+
+DROP CONSTRAINT constraint_name;
+
+- DROP; belirtilen tablo, index, view, procedure, trigger, sequence, synonym, domain, role, constraint gibi veritabanı objelerini veritabanından tamamen siler.
+
+-_INSERT/COPY Komutu_
+
+- SQL'de, INSERT komutu veritabanı veya tablolarda mevcut olan tablo'ya yeni veri eklemek için kullanılır.
+
+INSERT INTO calisanlar <br></br>
+( <br></br>
+  ad, <br></br>
+  soyad, <br></br>
+  yas <br></br>
+) <br></br>
+VALUES <br></br>
+( <br></br>
+'HANDE' <br></br>
+'ÇAVŞİ ZAİM' <br></br>
+30 <br></br>
+)
+
+- COPY komutu, veritabanındaki bir tablonun verilerini veya verileri içeren bir dosyadan veritabanına veri yüklemek için kullanılır. Bu komut genellikle çok hızlı ve büyük veri setlerinin yüklenmesi için kullanılır.
+
+COPY calisanlar <br></br>
+( <br></br>
+ad, <br></br>
+soyad, <br></br>
+yas <br></br>
+) <br></br>
+FROM '/tmp/calisanlar.csv' WITH (FORMAT CSV, DELIMITER ',')
+
+/tmp/calisanlar.csv adlı dosyadaki verileri çalışanlar tablosuna yükler, format csv ve delimiter ',' olarak ayarlar. Ayrıca, COPY komutu ile veritabanındaki verileri yedeklemek veya başka bir veritabanına taşımak da mümkündür.
+
+-_UPDATE Komutu_
+
+- SQL'de, UPDATE komutu veritabanı veya tablolarda mevcut olan tabloda bulunan verileri güncellemek için kullanılır.
+
+UPDATE calisanlar SET yaş=30 WHERE ad = 'HANDE'
+
+Update komutunda WHERE ifadesi önemlidir. Güncellenecek veride filtreleme yapmayı sağlar. Bu sorguda ismi HANDE olan verinin YAŞ bilgisi 30 olarak 
+güncellenir. EĞER WHERE ad='HANDE' ifadesi kullanılmasaydı tüm YAŞ verileri 30 olarak güncellenirdi. Bu nedenle UPDATE komutu kullanılırken; WHERE
+ifadesini kullanmak hayati önem taşır. 
+
+-_TRUNCATE/DELETE Komutu_
+
+- SQL'de, TRUNCATE komutu veritabanı veya tablolarda mevcut olan tablonun verilerini silmek için kullanılır. Bu komut, veritabanındaki bir tablonun tüm satırlarını veya kayıtlarını hızlı bir şekilde siler.
+
+TRUNCATE TABLE calisanlar --calisanlar tablosundaki tüm verileri silerek tabloyu temizler. 
+
+- SQL'de, DELETE komutu veritabanı veya tablolarda mevcut olan tablonun verilerini silmek için kullanılır. Bu komut, veritabanındaki bir tablonun belirli satırlarını veya kayıtlarını siler.
+
+DELETE FROM calisanlar WHERE ad = 'John' --WHERE ile filtreleme yaparak yalnızca adı 'John' olan satır verisini temizler. Diğer veriler silinmez.
+
+Yukarıdaki sorgu aynı UPDATE sorgusunda olduğu gibi WHERE koşulu ile filtreleme yapar. Eğer WHERE ad='John' filtresi kullanılmasaydı tablodaki tüm
+veriler silinirdi. Bu nedenle UPDATE komutunda olduğu gibi DELETE komutunda da WHERE koşulu hayati önem taşır. 
+
+-_SELECT Komutu & Aritmetik Fonksiyonlar_
+
+- SQL'de, SELECT komutu veritabanı veya tablolarda mevcut olan verileri sorgulamak için kullanılır. Bu komut, veritabanındaki bir tablonun veya birden fazla tablonun belirli satırlarını veya kayıtlarını seçerek döndürür.
+
+SELECT ad, soyad FROM calisanlar WHERE yas > 30 --yaşı 30'dan büyük olan çalışanların adını ve soyadını döndürür.
+
+SQL Pratikleri yapmak için kullanışlı bir link: https://www.hackerrank.com/domains/sql
+
+
+
+
+
