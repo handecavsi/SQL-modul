@@ -350,4 +350,33 @@ _CASE WHEN EXPRESSION_
 
 _OTHER CLAUSES (ORDER BY, AS, LIMIT, DISTINCT, HAVING)_
 
+*-ORDER BY*
 
+- SQL'de ORDER BY komutu, veritabanındaki belirli bir tablo veya sütun içindeki kayıtların belirli bir kriterlere göre sıralanmasını sağlar. Örneğin, müşterilerin adlarına göre sıralamak istediğinizde veya satışların tarih sırasına göre sıralamak istediğinizde ORDER BY kullanabilirsiniz.
+
+SELECT * FROM orders ORDER BY order_date,total_price; --"orders" tablosundaki siparişlerin tarih ve tutar sırasına göre sıralanmış halde döndürür.
+
+*-AS*
+
+- SQL'de AS komutu, sorgularda kullanılan sütun veya tablo adlarının yerine farklı bir isim vermenizi sağlar. Bu, sorguların daha okunaklı ve anlaşılır olmasını sağlar. Örneğin, bir tablonun adı uzun ve anlaşılmazsa, bu tablonun sorgularda kullanılması için kısa ve anlaşılır bir ad vermeniz mümkündür.
+
+SELECT SUM(total_price) AS 'Total Sales' FROM orders; -- "orders" tablosundaki siparişlerin toplam tutarını döndürür ve sütun adını "Total Sales" olarak değiştirir. Aynı zamanda AS komutu ile tablo adlarınıda değiştirebilirsiniz. <br></br>
+
+SELECT * FROM customers AS 'Müşteriler' --"customers" tablosunun adını "Müşteriler" olarak değiştirir.
+
+*-LIMIT*
+
+- LIMIT, SQL sorgularında sorgunun sonucunda döndürülecek olan satır sayısını belirlemek için kullanılan bir ifadedir. Örneğin, veritabanındaki tüm müşteri kayıtlarını almak yerine sadece ilk 10 kaydı almak isteyebilirsiniz. Bu durumda, sorgunun sonunda LIMIT 10 kullanılır.
+
+SELECT * FROM customers LIMIT 10;
+
+- Ayrıca, LIMIT ile OFFSET kullanarak belirli bir aralıkta kayıtları alabilirsiniz. Örneğin, 21. ila 30. müşteri kayıtlarını almak için:
+
+SELECT * FROM customers LIMIT 10 OFFSET 20; -customers tablosundaki 21. ila 30. kayıtları döndürür.
+
+*-DISTINCT*
+
+- DISTINCT, SQL sorgularında veritabanındaki aynı değerleri tekrar etmeden sadece farklı değerleri döndürmek için kullanılan bir ifadedir. Örneğin, veritabanındaki tüm müşteri kayıtlarını almak yerine sadece farklı müşteri adlarını almak isteyebilirsiniz. Bu durumda, sorgunun başına DISTINCT yazılır.
+
+SELECT DISTINCT name FROM customers; <br></br>
+SELECT city, COUNT(DISTINCT name) FROM customers GROUP BY city; --customers tablosundaki tüm farklı şehirleri ve bu şehirlerde yaşayan farklı müşteri sayılarını döndürür.
