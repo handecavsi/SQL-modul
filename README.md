@@ -281,9 +281,9 @@ TRIM([LEADING | TRAILING | BOTH] trim_character FROM string)
 
 Örnekler:
 
-SELECT TRIM('   hello   '); -- "hello"
-SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234"
-SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello"
+SELECT TRIM('   hello   '); -- "hello" <br></br>
+SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234" <br></br>
+SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello" <br></br>
 SELECT TRIM(BOTH ' ' FROM '   hello   '); -- "hello"
 
 *-REPLACE*
