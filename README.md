@@ -666,3 +666,167 @@ UNION ve UNION ALL komutlarının kullanımı durumlarına göre değişebilir, 
   4. Çoklu tablo işlemleri yapmak: Alt sorgular, bir veri tabanındaki birden fazla tablonun verilerini birleştirmek ve analiz etmek için kullanılabilir.
 
 - SQL'de iç içe sorgular, SELECT, FROM, WHERE, HAVING, ve GROUP BY gibi komutlardan sonra yazılabilir. İç içe sorgular, verileri filtrelemek, birleştirmek, gruplandırmak veya birleştirilmiş verilere göre işlem yapmak için kullanılabilir.
+
+- Aşağıdaki sorgu, employees tablosundaki tüm çalışanların bölümünü ve maaşlarını çeker ve sadece Londra'daki bölümlerin verilerini görüntüler. İç sorgu, Londra'daki bölümleri belirlemek için kullanılır ve dış sorguda FROM komutu ile bu bölümlerin verileri çekilir. Son olarak, maaşlar toplanır ve bölümlere göre gruplandırılır.
+
+      SELECT department, SUM(salary)
+
+      FROM employees
+
+      WHERE department IN (SELECT department FROM departments WHERE location = 'London')
+
+      GROUP BY department
+
+- Aşağıdaki sorguda, customers ve orders tablosu birleştirilir ve sadece 2022-01-01 tarihli siparişler görüntülenir. İç sorgu, sadece belirli bir tarihte yapılan siparişleri belirlemek için kullanılır ve dış sorguda INNER JOIN komutu ile bu siparişlere ait müşteri verileri çekilir.
+
+      SELECT customers.name, orders.order_id
+
+      FROM customers
+
+      INNER JOIN (SELECT customer_id, order_id FROM orders WHERE order_date = '2022-01-01') AS orders
+
+      ON customers.customer_id = orders.customer_id;
+
+- Aşağıdaki sorgu, customers tablosundaki tüm müşterilerin adını ve sadece 2022-01-01 tarihli sipariş yapan müşterilerin sipariş numaralarını çeker. İç sorgu, belirli bir tarihte yapılan siparişleri belirlemek için kullanılır ve dış sorguda WHERE komutu ile sadece bu siparişleri yapan müşterilerin verileri çekilir.
+
+      SELECT customers.name, orders.order_id
+
+      FROM customers
+
+      WHERE customer_id IN (SELECT customer_id FROM orders WHERE order_date = '2022-01-01');
+
+  - Aşağıdaki sorgu, ürün kategorisine göre satış verilerinin toplamını çeker ve sadece electronics kategorisi için satışların ortalamasından daha fazla satış yapan kategorileri görüntüler. İç sorgu, sadece belirli bir ürün kategorisi için satışların ortalamasını belirlemek için kullanılır ve dış sorguda HAVING komutu ile sadece belirli bir ortalamanın üstünde satış yapan kategoriler görüntülenir.
+ 
+        SELECT product_category, SUM(sales)
+
+        FROM sales_data
+
+        GROUP BY product_category
+
+        HAVING SUM(sales) > (SELECT AVG(sales) FROM sales_data WHERE product_category = 'electronics');
+
+- Aşağıdaki sorgu, müşteri tablosundaki tüm müşterilerin verilerini çeker ve her müşterinin sipariş tablosundaki toplam harcamasını belirleyen bir iç sorgu kullanır. Dış sorguda, sadece 1000 doların üzerinde harcama yapan müşteriler görüntülenir. Bu örnekte, iç sorgu ve dış sorgu arasında bir bağımlılık yoktur, çünkü her iki sorgu farklı tablolardan verileri çeker ve birbirine bağımlı değildir.
+
+      SELECT customer_id,
+      order_date,
+      (SELECT SUM(amount) FROM orders WHERE customer_id = customers.customer_id) AS total_spent
+      FROM customers
+      WHERE total_spent > 1000;
+
+- Aşağıdaki sorgu, order_details tablosundaki tüm sipariş detaylarını çeker ve her ürün adı için toplam satılan miktarı belirleyen bir iç sorgu kullanır. Dış sorguda, sadece 500 adetten fazla satılan ürünler görüntülenir. Bu örnekte, iç sorgu ve dış sorgu arasında bir bağımlılık vardır, çünkü iç sorgu dış sorguda kullanılan verileri filtrelemek için kullanılır.
+
+      SELECT order_id,
+      product_name,
+      quantity,
+      (SELECT SUM(quantity) FROM order_details WHERE product_name = outer_query.product_name) AS total_quantity_sold
+      FROM order_details AS outer_query
+      GROUP BY product_name
+      HAVING total_quantity_sold > 500;
+
+- Bu sorguda, orders tablosundaki order_id 10'a eşit olan müşteri customer_id'sini seçen bir alt sorgu kullanılır ve bu customer_id customers tablosuyla join edilir. Böylece, order_id 10'a ait müşteri bilgileri ve sipariş bilgileri eşleştirilir.
+
+      SELECT customers.customer_name,
+      orders.order_id,
+      orders.order_date
+      FROM customers
+      JOIN orders
+      ON customers.customer_id = (SELECT customer_id FROM orders WHERE order_id = 10)
+
+- SQL'de alt sorgular, belirli durumlarda veritabanı işlemlerini kolaylaştırır ve optimize eder.
+
+   1.Verilerin filtrelenmesi: Alt sorgular, verilerin belirli koşullara göre filtrelenmesini kolaylaştırır. Örneğin, bir tablo içindeki belirli bir değere sahip kayıtları seçmek isteyebilirsiniz.
+   2.Değer hesaplamaları: Alt sorgular, veritabanındaki veriler üzerinde çeşitli hesaplamalar yapmanıza olanak tanır. Örneğin, belirli bir ürün adı için toplam satış miktarını hesaplamak isteyebilirsiniz.
+   3.Bir verinin eşleştirilmesi: Alt sorgular, veritabanındaki iki veya daha fazla tablo arasında bir eşleştirme yapmanıza olanak tanır. Örneğin, müşterilerle ilgili verileri tutan bir tablo ile siparişlerle ilgili verileri tutan bir tablo arasında eşleştirme yapabilirsiniz.
+   4.Çoklu sorguları tek bir sorguda yapmak: Alt sorgular, bir sorguda birden fazla veritabanı sorgusu yapmanıza olanak tanır. Bu, kodunuzun daha kolay okunmasını ve anlaşılmasını sağlar ve veritabanı performansını optimize etmeye yardımcı olabilir.
+
+**9.WITH CLAUSE**
+
+- SQL'de "WITH" (Common Table Expression) komutu, bir sorgunun ara sonuçlarını tanımlayan geçici bir tablo oluşturmanıza olanak tanır. Bu tablo, birkaç farklı sorguda kullanılabilecek ve sorgular arasında veri paylaşımını kolaylaştırabilir.
+
+- "WITH" komutu, bir sorgu içinde belirli bir koşulu sağlamanız gereken verileri ayrı bir tablo olarak tanımlamanızı sağlar. Daha sonra bu tablo, diğer sorguların içinde tekrar kullanılabilir. Bu, sorguların okunabilirliğini ve anlaşılabilirliğini artırır ve aynı verilerin birden fazla kez sorgulanmasını önler.
+
+      WITH employee_sales AS (
+
+             SELECT name, SUM(sales) AS total_sales
+
+             FROM employees
+
+             GROUP BY name
+
+      )
+
+      SELECT *
+
+      FROM employee_sales
+
+      WHERE total_sales > 5000;
+
+- Bu sorguda, employees tablosundaki her bir çalışanın adı ve satışlarının toplamını tanımlayan "employee_sales" adlı geçici bir tablo oluşturulmuştur. Daha sonra, bu tablo "SELECT" sorgusu içinde kullanılır ve sadece "total_sales" değeri 5000'den büyük olan satırlar görüntülenir.
+
+- SQL'de "WITH" komutu içinde bir subquery da tanımlanabilir. Örnek olarak, aşağıdaki sorguda, "employee_sales" adında bir geçici tablo tanımlanmış ve bu tablo içinde bir subquery kullanılmıştır:
+
+      WITH employee_sales AS (
+
+            SELECT name, SUM(sales) AS total_sales
+
+            FROM employees
+
+            WHERE name IN (
+
+                    SELECT name
+
+                    FROM employees
+
+                    WHERE department = 'sales'
+
+            )
+
+           GROUP BY name
+
+      )  
+
+      SELECT *
+
+      FROM employee_sales
+
+      WHERE total_sales > 5000;
+
+- Bu sorguda, "employees" tablosundan "department" alanı "sales" olan çalışanların adını tanımlayan subquery kullanılmıştır. Sonrasında bu subquery kullanılarak "employee_sales" adlı geçici tablo oluşturulmuş ve sadece "total_sales" değeri 5000'den büyük olan satırlar görüntülenmiştir.
+
+      WITH employee_sales AS (
+
+               SELECT name, SUM(sales) AS total_sales
+
+               FROM employees
+
+               WHERE department = 'sales'
+
+               GROUP BY name
+
+               UNION
+
+               SELECT name, SUM(sales) AS total_sales
+
+               FROM employees
+
+               WHERE department = 'marketing'
+
+               GROUP BY name
+
+      )
+
+      SELECT *
+
+      FROM employee_sales
+
+      WHERE total_sales > 5000;
+
+- Bu sorguda, "employees" tablosundan "department" alanı "sales" olan ve "department" alanı "marketing" olan çalışanların adı ve satışlarının toplamı tanımlanmıştır. Sonrasında bu veriler "employee_sales" adlı geçici tablo oluşturulmuş ve sadece "total_sales" değeri 5000'den büyük olan satırlar görüntülenmiştir.
+
+- SQL'de "WITH" komutu, aşağıdaki durumlarda kullanılır:
+
+ 1. Yinelenen sorgu parçalarının tekrarını önlemek: "WITH" komutu, aynı sorgu parçalarının tekrar kullanılmasını önler ve kodun okunabilirliğini arttırır.
+ 2. Geçici tablo oluşturmak: "WITH" komutu ile geçici tablolar tanımlanabilir ve bu tablolardaki veriler diğer sorgular tarafından kullanılabilir.
+ 3. Zorlukla yapılabilecek sorguları kolaylaştırmak: "WITH" komutu, zorlukla yapılabilecek sorguları kolaylaştırır ve kodun okunabilirliğini arttırır.
+ 4. Sorguların anlaşılır bir şekilde gruplanması: "WITH" komutu, sorguları anlaşılır bir şekilde gruplamaya yardımcı olur ve kodun okunabilirliğini arttırır.
+
