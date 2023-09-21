@@ -601,3 +601,46 @@ Join komutlarının görselleştirilmesi aşağıdaki gibidir:
 
 **Not:** UNION kullanırken, her SELECT sorgusu aynı sayıda sütun, aynı sütun isimleri ve aynı veri türleri içermelidir.
 
+- SQL'de UNION ALL, birden fazla SELECT sorgusundan gelen tüm sonuçların birleştirilmesini sağlar. UNION ALL ile her SELECT sorgusundan gelen tüm satırlar tek bir tablo gibi görünen bir tablo olarak sunulur.
+
+      SELECT column1, column2, ...
+
+      FROM table1
+
+      UNION ALL
+
+      SELECT column1, column2, ...
+
+      FROM table2;
+
+**UNION ALL ile UNION arasındaki fark**, UNION ALL sonuçların içinde yinelenen satırları içerirken, UNION yinelenen satırları atar ve tek bir kopyasını sunar.
+
+- Diyelim ki A ve B isimli iki tablomuz olsun, A tablosu 1,2 verilerini içersin, B tablosu 2,3 verilerini içersin.
+
+- Bu iki tablonun UNION ve UNION ALL ile birleşim sorgusu şu şekilde olacaktır:
+
+      SELECT column1
+
+      FROM A
+
+      UNION 
+
+      SELECT column1
+
+      FROM B;
+
+
+      SELECT column1
+
+      FROM A
+
+      UNION ALL
+
+      SELECT column1
+
+      FROM B;
+
+
+- Bu iki sorgunun çıktıları ise şöyle görünecektir:
+
+<img width="529" alt="Ekran Resmi 2023-09-21 17 08 38" src="https://github.com/handecavsi/SQL-modul/assets/34586454/71c78e30-70a9-4c39-b15c-a14d879cbd94">
