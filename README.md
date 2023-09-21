@@ -141,25 +141,16 @@ ALTER komutu sadece tablolara değil aynı zamanda veritabanlarına da uygulanab
 
 DROP Kullanım Örnekleri:
 
-DROP TABLE table_name;
-
-DROP INDEX index_name;
-
-DROP VİEW view_name;
-
-DROP PROCEDURE procedure_name;
-
-DROP TRIGGER trigger_name;
-
-DROP SEQUENCE sequence_name;
-
-DROP SYNONYM synonym_name;
-
-DROP DOMAIN domain_name;
-
-DROP ROLE role_name;
-
-DROP CONSTRAINT constraint_name;
+    DROP TABLE table_name;
+    DROP INDEX index_name;
+    DROP VİEW view_name;
+    DROP PROCEDURE procedure_name;
+    DROP TRIGGER trigger_name;
+    DROP SEQUENCE sequence_name;
+    DROP SYNONYM synonym_name;
+    DROP DOMAIN domain_name;
+    DROP ROLE role_name;
+    DROP CONSTRAINT constraint_name;
 
 - DROP; belirtilen tablo, index, view, procedure, trigger, sequence, synonym, domain, role, constraint gibi veritabanı objelerini veritabanından tamamen siler.
 
@@ -236,7 +227,7 @@ _STRING FUNCTIONS (Metinsel Fonksiyonlar)_
 
 - PostgreSQL'de CONCAT()  fonksiyonu, verilen iki veya daha fazla dizeyi birleştirerek tek bir dize oluşturur. Fonksiyonun kullanımı şu şekildedir:
 
-SELECT concat(first_name, ' ', last_name) as full_name FROM employees;
+      SELECT concat(first_name, ' ', last_name) as full_name FROM employees;
 
 - Concat fonksiyonu, özellikle metinleri birleştirmek gerektiği durumlarda kullanışlıdır. Ayrıca, concat fonksiyonu yerine || operatörü de kullanılabilir. Bu operatör de aynı şekilde iki dizeyi birleştirir:
 
@@ -246,31 +237,31 @@ string1 || string2
 
 - LEFT()  fonksiyonu, verilen bir dizenin belirli bir sayıda sol karakterini döndürür. Fonksiyonun kullanımı şu şekildedir:
 
-SELECT left(first_name, 3) as initial FROM employees; ---first_name sütunundan veri alır ve ilk üç karakterini döndürür.
+      SELECT left(first_name, 3) as initial FROM employees; ---first_name sütunundan veri alır ve ilk üç karakterini döndürür.
 
 *-RIGHT*
 
 - RIGHT fonksiyonu, verilen bir dizenin belirli bir sayıda sağ karakterini döndürür. Fonksiyonun kullanımı şu şekildedir:
 
-SELECT right(phone_number, 4) as last_four_digits FROM employees; --phone sütunundan veri alır ve son dört karakterini döndürür.
+      SELECT right(phone_number, 4) as last_four_digits FROM employees; --phone sütunundan veri alır ve son dört karakterini döndürür.
 
 *-LENGTH*
 
 - LENGTH() fonksiyonu, bir karakter dizisinin uzunluğunu döndüren bir fonksiyondur. Yani, bu fonksiyon bir karakter dizisindeki karakterlerin sayısını sayar.
 
-SELECT length(first_name), first_name FROM employees; --first_name'in karakter uzunluğunu verir. 
+      SELECT length(first_name), first_name FROM employees; --first_name'in karakter uzunluğunu verir. 
 
 *-LOWER*
 
 - PostgreSQL'de LOWER() fonksiyonu, bir karakter dizisindeki tüm karakterleri küçük harflere dönüştürür.
 
-SELECT LOWER(first_name), LOWER(last_name) FROM employees;
+      SELECT LOWER(first_name), LOWER(last_name) FROM employees;
 
 *-UPPER*
 
 - PostgreSQL'de UPPER() fonksiyonu, bir karakter dizisindeki tüm karakterleri büyük harflere dönüştürür.
 
-SELECT UPPER(first_name) AS first_name_upper, UPPER(last_name) AS last_name_upper FROM employees ORDER BY last_name_upper, first_name_upper;
+      SELECT UPPER(first_name) AS first_name_upper, UPPER(last_name) AS last_name_upper FROM employees ORDER BY last_name_upper, first_name_upper;
 
 *-TRIM*
 
@@ -280,18 +271,18 @@ TRIM([LEADING | TRAILING | BOTH] trim_character FROM string)
 
 Örnekler:
 
-SELECT TRIM('   hello   '); -- "hello" <br></br>
-SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234" <br></br>
-SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello" <br></br>
-SELECT TRIM(BOTH ' ' FROM '   hello   '); -- "hello"
+    SELECT TRIM('   hello   '); -- "hello" <br></br>
+    SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234" <br></br>
+    SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello" <br></br>
+    SELECT TRIM(BOTH ' ' FROM '   hello   '); -- "hello"
 
 *-REPLACE*
 
 - PostgreSQL'deki REPLACE() fonksiyonu, bir karakter dizisinde belirli bir karakter dizisini bulur ve onu başka bir karakter dizisiyle değiştirir.
 
-SELECT REPLACE(first_name, 'a', 'o'), REPLACE(last_name, 'a', 'o') FROM employees; --Tüm çalışanların isimlerindeki "a" harfini "o" harfi ile değiştirir. <br></br>
+      SELECT REPLACE(first_name, 'a', 'o'), REPLACE(last_name, 'a', 'o') FROM employees; --Tüm çalışanların isimlerindeki "a" harfini "o" harfi ile değiştirir. <br></br>
 
-SELECT REPLACE(email, 'sqltutorial.org', 'yahoo.com') FROM employees; -- e-posta adreslerindeki "sqltutorial.org" uzantısını "yahoo.com" ile  değiştirir.
+      SELECT REPLACE(email, 'sqltutorial.org', 'yahoo.com') FROM employees; -- e-posta adreslerindeki "sqltutorial.org" uzantısını "yahoo.com" ile  değiştirir.
 
 *-SPLIT PART*
 
@@ -353,32 +344,32 @@ _OTHER CLAUSES (ORDER BY, AS, LIMIT, DISTINCT, HAVING)_
 
 - SQL'de ORDER BY komutu, veritabanındaki belirli bir tablo veya sütun içindeki kayıtların belirli bir kriterlere göre sıralanmasını sağlar. Örneğin, müşterilerin adlarına göre sıralamak istediğinizde veya satışların tarih sırasına göre sıralamak istediğinizde ORDER BY kullanabilirsiniz.
 
-SELECT * FROM orders ORDER BY order_date,total_price; --"orders" tablosundaki siparişlerin tarih ve tutar sırasına göre sıralanmış halde döndürür.
+      SELECT * FROM orders ORDER BY order_date,total_price; --"orders" tablosundaki siparişlerin tarih ve tutar sırasına göre sıralanmış halde döndürür.
 
 *-AS*
 
 - SQL'de AS komutu, sorgularda kullanılan sütun veya tablo adlarının yerine farklı bir isim vermenizi sağlar. Bu, sorguların daha okunaklı ve anlaşılır olmasını sağlar. Örneğin, bir tablonun adı uzun ve anlaşılmazsa, bu tablonun sorgularda kullanılması için kısa ve anlaşılır bir ad vermeniz mümkündür.
 
-SELECT SUM(total_price) AS 'Total Sales' FROM orders; -- "orders" tablosundaki siparişlerin toplam tutarını döndürür ve sütun adını "Total Sales" olarak değiştirir. Aynı zamanda AS komutu ile tablo adlarınıda değiştirebilirsiniz. <br></br>
+      SELECT SUM(total_price) AS 'Total Sales' FROM orders; -- "orders" tablosundaki siparişlerin toplam tutarını döndürür ve sütun adını "Total Sales" olarak değiştirir. Aynı zamanda AS komutu ile tablo adlarınıda değiştirebilirsiniz. <br></br>
 
-SELECT * FROM customers AS 'Müşteriler' --"customers" tablosunun adını "Müşteriler" olarak değiştirir.
+      SELECT * FROM customers AS 'Müşteriler' --"customers" tablosunun adını "Müşteriler" olarak değiştirir.
 
 *-LIMIT*
 
 - LIMIT, SQL sorgularında sorgunun sonucunda döndürülecek olan satır sayısını belirlemek için kullanılan bir ifadedir. Örneğin, veritabanındaki tüm müşteri kayıtlarını almak yerine sadece ilk 10 kaydı almak isteyebilirsiniz. Bu durumda, sorgunun sonunda LIMIT 10 kullanılır.
 
-SELECT * FROM customers LIMIT 10;
+      SELECT * FROM customers LIMIT 10;
 
 - Ayrıca, LIMIT ile OFFSET kullanarak belirli bir aralıkta kayıtları alabilirsiniz. Örneğin, 21. ila 30. müşteri kayıtlarını almak için:
 
-SELECT * FROM customers LIMIT 10 OFFSET 20; -customers tablosundaki 21. ila 30. kayıtları döndürür.
+      SELECT * FROM customers LIMIT 10 OFFSET 20; -customers tablosundaki 21. ila 30. kayıtları döndürür.
 
 *-DISTINCT*
 
 - DISTINCT, SQL sorgularında veritabanındaki aynı değerleri tekrar etmeden sadece farklı değerleri döndürmek için kullanılan bir ifadedir. Örneğin, veritabanındaki tüm müşteri kayıtlarını almak yerine sadece farklı müşteri adlarını almak isteyebilirsiniz. Bu durumda, sorgunun başına DISTINCT yazılır.
 
-SELECT DISTINCT name FROM customers; <br></br>
-SELECT city, COUNT(DISTINCT name) FROM customers GROUP BY city; --customers tablosundaki tüm farklı şehirleri ve bu şehirlerde yaşayan farklı müşteri sayılarını döndürür.
+      SELECT DISTINCT name FROM customers;
+      SELECT city, COUNT(DISTINCT name) FROM customers GROUP BY city; --customers tablosundaki tüm farklı şehirleri ve bu şehirlerde yaşayan farklı müşteri sayılarını döndürür.
 
 *-HAVING*
 
