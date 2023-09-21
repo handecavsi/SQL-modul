@@ -500,3 +500,82 @@ Aşağıdaki durumlarda inner join kullanılabilir:
 
 <img width="255" alt="Ekran Resmi 2023-09-21 16 42 47" src="https://github.com/handecavsi/SQL-modul/assets/34586454/f4f0d7a0-b5ef-4c96-ae0f-1e702068265c">
 
+*-LEFT JOIN*
+
+- SQL'de LEFT JOIN yaparken ON kısmında, sol tablo ile sağ tablo arasındaki eşleşme kriterleri belirtilmelidir. Kriter olarak herhangi bir sütun ismi kullanılabilir. ON kısmında yazılan koşul tablo satırlarının birbirine eşleşip eşleşmeyeceğini belirler. Eğer belirtilen koşul sağlanıyorsa, iki tablo arasındaki kayıtlar birleştirilir. Eğer belirtilen koşul sağlanmıyorsa, sol tablo için NULL değerleri kullanılır.
+
+Aşağıdaki durumlarda left join kullanılabilir:
+
+- Eşleşmeyen verilerin belirlenmesi: Left join, sol tablo içindeki eşleşmeyen verilerin belirlenmesine yardımcı olabilir.
+- Sol tablo verilerinin tam görüntülenmesi: Left join, sol tablo verilerinin tamamının görüntülenmesi gerektiğinde kullanılabilir.
+- Sol tablo verilerinin sağ tablo verileriyle eşleştirilmesi: Left join, sol tablo verilerinin sağ tablo verileriyle eşleştirilmesi gerektiğinde kullanılabilir.
+- Verilerin filtrelenmesi: Left join, verilerin belirli bir kriterle filtrelenmesi gerektiğinde kullanılabilir. Örneğin, belirli bir tarih aralığında yapılan siparişlerin listelenmesi gerektiğinde.
+
+      SELECT students.student_id, students.name, departments.department
+
+      FROM students
+
+      LEFT JOIN departments
+
+      ON students.student_id = departments.student_id;
+
+*-RIGHT JOIN*
+
+- ON kısmında, bir RIGHT JOIN sorgusu içinde hangi tabloların birbirlerine nasıl eşleneceğini tanımlayan bir koşul yazmalısınız. Genellikle, iki tablo arasındaki ilişkiyi belirlemek için bir veya daha fazla eşleşme kriterini belirleyen bir sütun veya sütunlar belirtilir.
+
+Aşağıdaki durumlarda right join kullanılabilir:
+
+- Eşleşmeyen verilerin belirlenmesi: Right join, sağ tablo içindeki eşleşmeyen verilerin belirlenmesine yardımcı olabilir.
+- Sağ tablo verilerinin tam görüntülenmesi: Right join, sağ tablo verilerinin tamamının görüntülenmesi gerektiğinde kullanılabilir. Sol tablo verilerinin sağ tablo verileriyle eşleştirilmesi: Right join, sağ tablo verilerinin sol tablo verileriyle eşleştirilmesi gerektiğinde kullanılabilir.
+- Verilerin filtrelenmesi: Right join, verilerin belirli bir kriterle filtrelenmesi gerektiğinde kullanılabilir. Örneğin, belirli bir tarih aralığında yapılan siparişlerin listelenmesi gerektiğinde.
+
+      SELECT *
+
+      FROM student_learning AS sl
+
+      RIGHT JOIN student_info AS si
+
+      ON sl.student_id=si.student_id
+
+      ORDER BY student_country
+
+  *-FULL OUTER JOIN*
+
+  Aşağıdaki durumlarda full outer join kullanılabilir:
+
+- Eşleşmeyen verilerin belirlenmesi: Full outer join, iki tablo arasındaki eşleşmeyen verilerin belirlenmesine yardımcı olabilir.
+- Verilerin tam analizi: Full outer join, verilerin tamamının analiz edilmesi, raporlama veya veri keşfetme gibi amaçlar için kullanılabilir.
+- Verilerin tam eşleştirilmesi: Full outer join, iki tablo arasındaki verilerin tam eşleştirilmesi gerektiğinde kullanılabilir. Örneğin, müşteri bilgileri ve sipariş bilgilerinin tam bir listesi gerektiğinde.
+- Verilerin tam görüntülenmesi: Full outer join, verilerin tamamının görüntülenmesi gerektiğinde kullanılabilir. Örneğin, müşteri bilgileri ve sipariş bilgilerinin tamamının görüntülenmesi gerektiğinde.
+
+      SELECT Customers.customer_id, Customers.first_name, Orders.amount
+
+      FROM Customers
+
+      FULL OUTER JOIN Orders
+
+      ON Customers.customer_id = Orders.customer;
+
+
+  *-CROSS JOIN*
+
+  - SQL'de, Cross Join iki tablo arasındaki tüm satırların kombinasyonunu oluşturan bir join türüdür. Cross join, tablo adını takip eden ON koşulu olmaksızın bir tablo ile diğer tablonun her satırının birleştirilmesi sonucu oluşur.
+ 
+Aşağıdaki durumlarda Cross Join kullanılabilir:
+
+- Tüm verilerin birleştirilmesi: Cross join, veritabanındaki tüm verilerin birleştirilmesi gerektiğinde kullanılabilir.
+- Çoklu veri analizi: Cross join, çoklu veri analizi yapmak için verilerin birleştirilmesi gerektiğinde kullanılabilir.
+- Cartesian product: Cross join, veritabanındaki verilerin bir Cartesian product olarak birleştirilmesi gerektiğinde kullanılabilir.
+- Veri üretimi: Cross join, veritabanındaki verilerin üretilmesi ve yeniden yapılandırılması gerektiğinde kullanılabilir.
+
+      SELECT *
+
+      FROM table1
+
+      CROSS JOIN table2;
+
+  veya;
+
+      SELECT *
+
+      FROM table1,table2;
