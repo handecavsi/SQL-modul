@@ -579,3 +579,7 @@ Aşağıdaki durumlarda Cross Join kullanılabilir:
       SELECT *
 
       FROM table1,table2;
+
+Join komutlarının görselleştirilmesi aşağıdaki gibidir:
+
+![Joins](https://github.com/handecavsi/SQL-modul/assets/34586454/c0341709-4ac2-40a9-9360-34416cba5f6c)
