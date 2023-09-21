@@ -482,6 +482,13 @@ SELECT city, COUNT(DISTINCT name) FROM customers GROUP BY city; --customers tabl
   5. Cross Join: Veritabanındaki iki veya daha fazla tablo arasında herhangi bir ilişki olmaksızın verilerin birleştirilmesini sağlar. Bu join türü, her bir kayıt için diğer tablonun tüm kayıtlarıyla birleştirilmesini sağlar. Yani bir tablo içindeki her bir kayıt diğer tablo içindeki tüm kayıtlarla eşleştirilir. Cross join, verileri çok fazla artırabilir ve performans sorunlarına yol açabilir, bu yüzden performansı önemli olan uygulamalarda sıklıkla kullanılmaz. Ancak veri keşfetme ve analitik uygulamalarda kullanılabilir.
  
 *-INNER JOIN*
+
+Aşağıdaki durumlarda inner join kullanılabilir:
+
+- Eşleşen verilerin belirlenmesi: Inner join, iki tablo arasındaki eşleşen verilerin belirlenmesine yardımcı olabilir.
+- Verilerin filtrelenmesi: Inner join, verilerin belirli bir kriterle filtrelenmesi gerektiğinde kullanılabilir. Örneğin, belirli bir tarih aralığında yapılan siparişlerin listelenmesi gerektiğinde.
+- Verilerin eşleştirilmesi: Inner join, iki tablo arasındaki verilerin eşleştirilmesi gerektiğinde kullanılabilir. Örneğin, müşteri bilgileri ve sipariş bilgilerinin eşleştirilmesi gerektiğinde.
+- Verilerin sınırlandırılması: Inner join, verilerin belirli bir kriterle sınırlandırılması gerektiğinde kullanılabilir. Örneğin, belirli bir şehirdeki müşterilerin siparişlerinin listelenmesi gerektiğinde.
  
          SELECT students.student_id, students.name, departments.department
 
