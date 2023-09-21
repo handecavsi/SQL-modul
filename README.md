@@ -872,3 +872,193 @@ UNION ve UNION ALL komutlarının kullanımı durumlarına göre değişebilir, 
 
           Output:
           "SUNDAY-FEB-23"
+      
+**11. Date/Time Fonksiyonları**
+
+- PostgreSQL veritabanı sisteminde birçok tarih ve zaman fonksiyonu bulunur. Aşağıdaki en sık kullanılan tarih ve zaman fonksiyonları listelenmiştir:
+
+1. current_date: Bugünün tarihini döndürür.
+2. current_time: Şu andaki saati döndürür.
+3. current_timestamp: Şu anki tarih ve saati döndürür.
+4. date_trunc: Belirtilen birimi kullanarak tarihi birleştirir.
+5. extract: Belirtilen birimi kullanarak tarih veya zaman verisinden bir parçayı döndürür.
+6. age: İki tarih arasındaki farkı döndürür.
+7. date_part: Belirtilen birimi kullanarak tarih verisinden bir parçayı döndürür.
+8. to_date: Metin verisini tarih verisine dönüştürür.
+9. to_timestamp: Metin verisini zaman damgası verisine dönüştürür.
+10. interval: İki tarih arasındaki farkı döndürür.
+11. now: Şu anki tarih ve saati döndürür.
+
+        SELECT date_trunc('month', '2023-02-10 13:30:15'::TIMESTAMP);
+    
+        Result:
+        2023-02-01 00:00:00
+
+
+        SELECT EXTRACT(YEAR FROM '2022-06-01 12:30:15'::TIMESTAMP);  -- 2022
+        SELECT EXTRACT(DAY FROM '2022-06-01 12:30:15'::TIMESTAMP);   -- 1
+        SELECT EXTRACT(HOUR FROM '2022-06-01 12:30:15'::TIMESTAMP);  -- 12
+        SELECT EXTRACT(MINUTE FROM '2022-06-01 12:30:15'::TIMESTAMP); -- 30
+
+
+
+        SELECT AGE('2022-06-02 12:30:15', '2022-06-01 12:30:15');
+
+        Result:
+        1 day
+
+
+        SELECT EXTRACT(DAY FROM AGE('2022-06-02 12:30:15', '2022-06-01 12:30:15'));
+
+
+
+
+        SELECT date_part('year', '2022-06-01 12:30:15'::TIMESTAMP);  -- 2022
+        SELECT date_part('day', '2022-06-01 12:30:15'::TIMESTAMP);   -- 1
+        SELECT date_part('hour', '2022-06-01 12:30:15'::TIMESTAMP);  -- 12
+        SELECT date_part('minute', '2022-06-01 12:30:15'::TIMESTAMP); -- 30
+
+
+
+        SELECT to_date('2022-06-01', 'YYYY-MM-DD');
+        SELECT to_date('01-06-2022', 'DD-MM-YYYY');
+
+
+        SELECT to_timestamp('2022-06-01 10:30:00', 'YYYY-MM-DD HH:MI:SS');
+        SELECT to_timestamp('2022-06-01', 'YYYY-MM-DD') + interval '1 month';
+        SELECT NOW() + INTERVAL '1 day';
+
+
+**12. Desen Eşleştirme**
+
+- SQL’de pattern matching (desen eşleştirme), belirli bir desene sahip metinleri bulmak için kullanılan bir işlemdir. Pattern matching, LIKE, SIMILAR TO, ve POSIX Regular Expressions olmak üzere üç farklı yöntemle yapılabilir.
+
+**-LIKE:** Bu operatör, SQL'de en yaygın olarak kullanılan desen eşleştirme yöntemidir. LIKE operatörü, deseni temsil etmek için joker karakterler kullanır. % karakteri, sıfır veya daha fazla karakteri temsil ederken, _ karakteri tek bir karakteri temsil eder.
+
+**-SIMILAR TO:** Bu operatör, LIKE operatörüne benzer, ancak daha karmaşık desenler için daha uygun olabilir. SIMILAR TO operatörü, % ve _ joker karakterleri yanı sıra [ ] karakter sınıfları ve { } alternatif desenler gibi ek joker karakterleri destekler.
+
+**-POSIX Regular:** Bu yöntem, düzenli ifadeler (regular expressions) kullanarak desen eşleştirme yapmak için kullanılır. PostgreSQL'de, ~ veya ~* operatörleri kullanılarak POSIX regular expressions desteklenir. 
+
+- PostgreSQL'de POSIX regular expressions (düzenli ifadeler) ve pattern matching (desen eşleştirme) kavramları benzer ama farklıdır.
+
+- Pattern matching, belirli bir desene sahip metinleri bulmak için kullanılan bir işlemdir. PostgreSQL'de, desen eşleştirme için genişletilmiş SQL sözdizimi kullanılır. Bu sözdizimi, belirli karakterleri veya karakter sınıflarını temsil etmek için özel semboller içerir. Örneğin, LIKE operatörü, % karakteri ile birçok karakteri temsil edebilir. Örneğin, 'abc%' ifadesi, 'abc', 'abcdef' ve 'abc123' gibi metinlerle eşleşir.
+
+- Regular expressions, pattern matching'in bir alt kümesidir ve daha güçlü bir araçtır. Regular expressions, metnin belirli bir desenini ifade etmek için kullanılan bir dizi özel karakterdir. Örneğin, . herhangi bir karakteri temsil ederken, + bir veya daha fazla önceki karakteri temsil eder. Regular expressions, pattern matching'den daha esnek bir desen eşleştirme sağlar ve daha kapsamlı ve karmaşık desenler için kullanılabilir.
+
+- Özetle, PostgreSQL'de pattern matching ve regular expressions benzer işlemlerdir, ancak regular expressions daha güçlü bir araçtır ve daha karmaşık desenler için daha uygundur.
+
+      SELECT * FROM employees WHERE first_name LIKE 'John%';
+
+- Bu sorgu, employees tablosunda 'name' sütununda 'John' ile başlayan tüm kayıtları getirecektir. Örneğin, 'John Doe', 'John Smith', vb.
+
+      SELECT * FROM employees WHERE first_name LIKE 'Smith%J';
+  
+- Bu sorgu, employees tablosunda 'name' sütununda 'Smith' ile başlayan ve son karakteri 'J' olan tüm kayıtları getirecektir.
+
+      SELECT * FROM employees WHERE first_name LIKE '_ohn%'
+
+- Bu sorgu, employees tablosunda 'name' sütununda bir karakterle başlayan ve 'ohn' ile devam eden tüm kayıtları getirecektir. Örneğin, 'John', 'Tohn', 'Bohn', vb.
+
+      SELECT * FROM employees WHERE first_name LIKE '_a%'
+
+- Bu sorgu, employees tablosunda 'name' sütununda ikinci karakteri 'a' olan tüm kayıtları getirecektir.
+
+      SELECT * FROM employees WHERE first_name LIKE '%e_'
+
+- Bu sorgu, employees tablosunda 'name' sütununda 'e' harfiyle biten ve son karakteri herhangi bir karakter olan tüm kayıtları getirecektir. Örneğin, 'Kate', 'Steve', 'Rose', vb.
+
+- Tablodaki "fruit" sütununda "apple" veya "orange" kelimesini içeren kayıtları döndürmek istediğimizi varsayalım. Bu durumda SIMILAR TO ve | operatörlerini kullanarak aşağıdaki sorguyu yazabiliriz:
+
+      SELECT * FROM table_name WHERE fruit SIMILAR TO '%(apple|orange)%';
+
+- SIMILAR TO ve {m} kullanarak "apple" kelimesinin ardından 5 tane "e" karakteri olan kayıtları sorgulayabiliriz:
+
+      SELECT * FROM table_name WHERE description SIMILAR TO 'apple{5}';
+      Output:
+      "appleeeee"
+- {m,} bir önceki öğenin m veya daha fazla kez tekrarını gösterir.
+- {m,n} bir önceki öğenin en az m ve en fazla n kez tekrarını gösterir.
+
+      SELECT 'aaaaab' SIMILAR TO 'a{5}b'; -- true
+      SELECT 'aaab' SIMILAR TO 'a{4}b'; -- false
+      SELECT 'aabb' SIMILAR TO 'a{2}b{2}'; -- true
+      SELECT 'abab' SIMILAR TO 'a{1,2}b{1,2}'; -- true
+
+- Aşağıdaki örnekte, tablodaki description sütununda yer alan veriler içerisinde, apple kelimesi geçen ve pie kelimesi geçen gruplar arasında arama yapacağız. Bunun için, apple kelimesini pie kelimesi ile birlikte gruplandırarak, bu iki kelimenin arka arkaya yer alması gerektiğini ifade ediyoruz:
+
+      SELECT * FROM table_name WHERE description SIMILAR TO '%apple%(pie)%';
+
+- Aşağıdaki örnekte, tablodaki description sütununda yer alan veriler içerisinde, red, green veya blue kelimeleri ile başlayan satırları arayacağız. Bunun için, [] kullanarak bu üç renk kelimesinin başlangıcını ifade eden bir karakter sınıfı oluşturuyoruz:
+
+      SELECT * FROM table_name WHERE description SIMILAR TO '[r|g|b]*%';
+
+  **POSIX Regular Expressions**
+
+  - regexp_count: bir metindeki belirtilen pattern'in kaç kez tekrarlandığını sayar
+  - regexp_instr: bir metindeki belirtilen pattern'in ilk karakterinin konumunu döndürür
+  - regexp_like: bir metin ifadesinin, belirli bir regular expression pattern'ine uyup uymadığını test eder
+  - regexp_match: bir metindeki pattern'leri tespit eder ve sonuç olarak bir dizi döndürür
+  - regexp_substr: bir metindeki belirtilen pattern'in ilk oluşumunun alt dizesini döndürür
+  - regexp_replace: bir metindeki belirli pattern'leri başka bir string ile değiştirir
+  - PostgreSQL, regular expression desenlerinde kullanılabilen constraints (kısıtlamalar) sağlar. Bu kısıtlamalar, eşleşmelerin belirli koşulları karşılaması gerektiğini belirtir ve desenin daha kesin olmasını sağlar. İşte PostgreSQL'de kullanılabilen bazı constraints:
+
+- ^: Bir desenin satırın başlangıcına eşleşmesi gerektiğini belirtir. Örneğin, ^a deseni, sadece metnin başında a karakteri varsa eşleşir.
+- $: Bir desenin satırın sonuna eşleşmesi gerektiğini belirtir. Örneğin, a$ deseni, sadece metnin sonunda a karakteri varsa eşleşir.
+- \b: Bir desenin kelime sınırlarına (word boundary) eşleşmesi gerektiğini belirtir. Bir kelime sınırı, kelimenin başlangıcı, bitişi veya bir kelime karakteriyle olmayan bir karakterle ayrılmış olmasıdır. Örneğin, \btest\b deseni, sadece "test" kelimesiyle ayrılmış bir metinde eşleşir.
+- \B: Bir desenin kelime sınırlarına eşleşmemesi gerektiğini belirtir. Örneğin, \Btest\B deseni, sadece "test" kelimesiyle ayrılmamış bir metinde eşleşir.
+- (?=...): Bir desenin bir sonraki desenle eşleşmesi gerektiğini belirtir. Ancak, sonraki desen eşleştirme sonucuna dahil edilmez. Örneğin, a(?=b) deseni, sadece a karakteri varsa ve onu takip eden karakter b ise eşleşir, ancak b karakteri sonuçta dahil edilmez.
+- (?!...): Bir desenin bir sonraki desenle eşleşmemesi gerektiğini belirtir. Örneğin, a(?!b) deseni, a karakteri varsa ve onu takip eden karakter b değilse eşleşir.
+- Bu constraints, PostgreSQL'de regular expression desenlerinin daha spesifik olmasını sağlar ve metin verileri üzerinde daha kısıtlı eşleştirme işlemleri gerçekleştirmek için kullanılabilir. Örneğin, belirli bir kelimenin sadece tam olarak eşleştiği yerlerin tespit edilmesi veya bir desenin belirli bir kelime sınırı ile sınırlanması için kullanılabilir.
+
+**Regular Expression Atoms**
+
+- PostgreSQL, regular expression desenlerinde kullanılabilen bir dizi atom sağlar. Bu atomlar, desenlerin belirli karakterlerini veya karakter gruplarını belirtmek için kullanılır. İşte PostgreSQL'de kullanılabilen bazı atomlar:
+
+- . (nokta): Herhangi bir tek karakteri eşleştirir, yeni satır karakteri (\n) hariç.
+- [] (köşeli parantezler): Köşeli parantezler, içindeki karakter sınıfının herhangi bir karakteri ile eşleşir. Örneğin, [abc] deseni, a, b veya c karakterleriyle eşleşir. Köşeli parantezler içinde ayrıca karakter aralıkları ([a-z], [0-9]) veya karakter kümeleştiricileri ([^abc], [^a-z]) de kullanılabilir.
+- () (yuvarlak parantezler): Yuvarlak parantezler, içindeki deseni bir alt desen olarak gruplandırır. Bu, desenlerin parçalarını gruplandırmak veya gruplandırılmış alt desenlerin eşleşen metinlerini geri almak için kullanılabilir.
+- {} (süslü parantezler): Süslü parantezler, önceki atomun tekrarlanmasını belirtmek için kullanılır. Örneğin, a{3} deseni aaa metniyle eşleşir. Süslü parantezler içinde ayrıca minimum ve maksimum tekrar sayıları da belirtilebilir (a{2,4}).
+- \ (ters eğik çizgi): Ters eğik çizgi, bir sonraki karakterin özel bir anlamı olmadan doğrudan karakter olarak işlenmesini sağlar. Örneğin, . deseni, bir nokta karakteriyle eşleşir.
+
+Ayrıca;
+
+- \d: Sayısal karakterlerin yerini tutar. [0-9] ifadesi ile aynıdır.
+- \D: Sayısal olmayan karakterlerin yerini tutar. [^0-9] ifadesi ile aynıdır.
+- \w: Kelime karakterlerinin yerini tutar. [a-zA-Z0-9_] ifadesi ile aynıdır.
+- \W: Kelime karakteri olmayan karakterlerin yerini tutar. [^a-zA-Z0-9_] ifadesi ile aynıdır.
+- \s: Boşluk karakterlerinin yerini tutar. [\r\n\t\f\v ] ifadesi ile aynıdır.
+- \S: Boşluk karakteri olmayan karakterlerin yerini tutar. [^\r\n\t\f\v ] ifadesi ile aynıdır.
+- Örneğin, "\d+" deseni, bir veya daha fazla sayısal karakteri eşleştirir. "\w+" deseni, bir veya daha fazla kelime karakterini eşleştirir. "\s+" deseni, bir veya daha fazla boşluk karakterini eşleştirir.
+- +: Bir önceki atomun bir veya daha fazla tekrarlanması gerektiğini belirtir. Örneğin, a+ deseni, en az bir a karakteri içeren herhangi bir metinle eşleşir.
+- : Bir önceki atomun sıfır veya daha fazla tekrarlanabileceğini belirtir. Örneğin, a deseni, herhangi bir sayıda a karakteri içeren herhangi bir metinle eşleşir, hatta hiç a karakteri içermeyen metinlerle bile.
+- ?: Bir önceki atomun sıfır veya bir kez tekrarlanabileceğini belirtir. Örneğin, a? deseni, bir metinde ya bir a karakteri olabilir ya da olmayabilir.
+- {n}: Bir önceki atomun tam olarak n kez tekrarlanması gerektiğini belirtir. Örneğin, a{3} deseni, aaa karakterleri içeren herhangi bir metinle eşleşir.
+- {n,}: Bir önceki atomun en az n kez tekrarlanması gerektiğini belirtir. Örneğin, a{3,} deseni, en az üç a karakteri içeren herhangi bir metinle eşleşir.
+- {n,m}: Bir önceki atomun en az n kez ve en fazla m kez tekrarlanması gerektiğini belirtir. Örneğin, a{2,4} deseni, en az iki ve en fazla dört a karakteri içeren herhangi bir metinle eşleşir.
+
+      SELECT regexp_count('Hello World! This is an example.', 'example');
+  
+- Bu sorgu sonucunda, regexp_count fonksiyonu "example" kelimesinin metin içinde 1 kez geçtiğini sayacak ve 1 sonucunu döndürecektir.
+  
+      SELECT regexp_instr('Hello World! This is an example.', 'example');
+
+- Bu sorgu sonucunda, regexp_instr fonksiyonu "example" kelimesinin metin içinde 19. karakterden başladığını döndürecektir. Dikkat ederseniz, regexp_instr fonksiyonu sıfırdan değil, bir (1) numaralı karakterden başlayarak konumu hesaplar.
+
+      SELECT * FROM table_name WHERE regexp_like(description, 'apple');
+
+- Bu sorgu, "description" sütununda "apple" kelimesi geçen tüm kayıtları döndürür.
+
+      SELECT description, regexp_match(description, '\d+') AS match
+
+      FROM products;
+  
+- Bu sorgu, "description" sütunundaki her satırı, bu satırdaki tüm rakamları içeren alt dize olarak eşleşen bir diziyle birlikte döndürür. Örneğin, "Apple pie with 5 apples" satırı, "{5}" dizisiyle birlikte döndürülür.
+
+      regexp_substr(string, pattern [, position [, occurrence [, flags ]]])
+
+- regexp_substr fonksiyonu, bir metin ifadesinde verilen bir desene (pattern) uyan alt dizgeyi (substring) döndürür.
+- string: işlem yapılacak metin ifadesi.
+- pattern: aranan desen (pattern).
+- position: desen aramanın başlayacağı pozisyon. Varsayılan değeri 1'dir.
+- occurrence: desenin kaçıncı kez tekrar ettiği bilgisini içeren bir sayı. Varsayılan değeri 1'dir.
+- flags: opsiyonel bir bayraklar dizisi (array) veya NULL. Bayraklar, arama sırasında kullanılan ek ayarları belirtmek için kullanılır.
