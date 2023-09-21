@@ -107,7 +107,7 @@ test_db isimli bir database oluşturmak ve bu database'de bir tablo tanımlamak 
 
     create database test_db; 
 
-    create table ogrenci <br></br>
+    create table ogrenci 
     ( 
       id integer, 
       isim varchar(30), 
