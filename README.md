@@ -830,3 +830,45 @@ UNION ve UNION ALL komutlarının kullanımı durumlarına göre değişebilir, 
  3. Zorlukla yapılabilecek sorguları kolaylaştırmak: "WITH" komutu, zorlukla yapılabilecek sorguları kolaylaştırır ve kodun okunabilirliğini arttırır.
  4. Sorguların anlaşılır bir şekilde gruplanması: "WITH" komutu, sorguları anlaşılır bir şekilde gruplamaya yardımcı olur ve kodun okunabilirliğini arttırır.
 
+**10. Veri Tipi Değiştirme**
+
+- SQL'de veri tipini değiştirmek için **cast (dönüştürme)** fonksiyonu kullanılır. Bu fonksiyon, verinin belirli bir veri tipine dönüştürülmesini sağlar.
+
+      SELECT cast(kolon_adi as veri_tipi)
+
+      FROM tablo;
+
+      SELECT cast('123' as integer);
+  
+- Ayrıca veriyi cast etmek için :: operatorü kullanılabilir. Bu operator, verinin belirli bir veri tipine dönüştürülmesini sağlar.
+
+:: operatorünün kullanımı şu şekildedir:
+
+    SELECT veri::veri_tipi
+
+    FROM tablo;
+
+
+    SELECT '123'::integer;
+
+- timestamp veri tipindeki bir timestamp değeri, date veri tipine dönüştürülür:
+
+      SELECT CAST('2023-02-12 10:30:00' AS timestamp)::date;
+  
+- Aynı sonuç date fonksiyonu kullanılarak elde edilebilir:
+  
+      SELECT date('2023-02-12 10:30:00');
+
+- **TO_CHAR fonksiyonu**, veritabanındaki bir veriyi belirli bir formatta görüntülemek için kullanılır. Bu fonksiyon, veriyi belirli bir düzen içinde görüntülemek için özelleştirilmiş bir şekilde biçimlendirir. TO_CHAR fonksiyonu, tarih ve saat verileri, sayılar, yüzdeler ve diğer veriler gibi farklı veri tipleri için kullanılabilir.
+
+      SELECT TO_CHAR(date '2023-02-12', 'DD-MON-YYYY');
+
+    - YYYY: 4 haneli yıl (örnek: 2022)
+    - YY: 2 haneli yıl (örnek: 22)
+    - MM: Ay (örnek: 02)
+    - DD: Gün (örnek: 12)
+ 
+          SELECT TO_CHAR(date '2023-02-12', 'DAY-MON-YY');
+
+          Output:
+          "SUNDAY-FEB-23"
