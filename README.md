@@ -583,3 +583,21 @@ Aşağıdaki durumlarda Cross Join kullanılabilir:
 Join komutlarının görselleştirilmesi aşağıdaki gibidir:
 
 ![Joins](https://github.com/handecavsi/SQL-modul/assets/34586454/c0341709-4ac2-40a9-9360-34416cba5f6c)
+
+
+**7.Union ve Union All**
+
+- SQL'de UNION, birden fazla SELECT sorgusundan gelen sonuçları birleştirmek için kullanılan bir operatördür. UNION, tek bir tablo gibi görünen ve her SELECT sorgusundan gelen satırları içeren bir tablo oluşturur.
+
+      SELECT column1, column2, ...
+
+      FROM table1
+
+      UNION
+
+      SELECT column1, column2, ...
+
+      FROM table2;
+
+**Not:** UNION kullanırken, her SELECT sorgusu aynı sayıda sütun, aynı sütun isimleri ve aynı veri türleri içermelidir.
+
