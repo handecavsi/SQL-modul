@@ -380,3 +380,105 @@ SELECT * FROM customers LIMIT 10 OFFSET 20; -customers tablosundaki 21. ila 30. 
 
 SELECT DISTINCT name FROM customers; <br></br>
 SELECT city, COUNT(DISTINCT name) FROM customers GROUP BY city; --customers tablosundaki tüm farklı şehirleri ve bu şehirlerde yaşayan farklı müşteri sayılarını döndürür.
+
+*-HAVING*
+
+-  WHERE anahtar sözcüğü aggregate fonnksiyonlarıyla kullanılamadığı için HAVING SQL diline eklenmiştir. Kullanımı aşağıdaki gibidir:
+
+        SELECT column_name(s)
+        FROM table_name
+        WHERE condition
+        GROUP BY column_name(s)
+        HAVING condition
+        ORDER BY column_name(s);
+
+
+       SELECT COUNT(CUstumerID), Country
+       FROM Customers
+       GROUP BY Country
+       HAVING COUNT(CustomerID)>5;
+
+- Yukarıdaki sorguda her ülkeddeki müşteri sayısı listelenir ve müşteri sayısı 5'ten fazla olan ülkeler seçilir. 
+     
+      SELECT COUNT(CustomerID), Country
+      FROM Customers
+      GROUP BY Country
+      HAVING COUNT(CustomerID) > 5
+      ORDER BY COUNT(CustomerID) DESC;
+
+- Yukarıdaki sorguda müşteri sayısı 5'ten fazla olan ülkeler azalan şekilde sıralanır. COUNT(CostumerID) Where koşuluyla birlikte kullanılmaz. Bunun yerine GROUP BY HAVING ifadesi kullanılır.
+
+*-WHERE Komutu ve LIKE Operatörü*
+
+- J ile başlayan isimler:
+
+      SELECT * FROM employees WHERE name LIKE 'J%';
+
+- @gmail.com ile biten mail adresleri:
+
+      SELECT * FROM employees WHERE email LIKE '%@gmail.com';
+
+- Aşağıdaki sorgu "employees" tablosundaki tüm kayıtları seçer ve sadece "name" sütununda "J_n" harfleri ile başlayan isimlerin olan kayıtları gösterir.
+
+      SELECT * FROM employees WHERE name LIKE 'J_n';
+
+- Aşağıdaki sorgu L ile başlayan, ardından bir joker karakter ardından nd ve ardından iki joker karakterle başlayan müşterileri döndürür:
+
+      SELECT * FROM Customers
+      WHERE city LIKE 'L_nd__';
+
+  **5.Aggregate Functions (Toplu Fonksiyonlar)**
+
+- SQL'de Aggregate Functions (Toplu Fonksiyonlar), bir tablonun birden fazla satırındaki verileri tek bir değer olarak özetler. Bunlar genellikle COUNT, SUM, AVG, MAX, MIN gibi fonksiyonlardır. Bu fonksiyonlar sadece SELECT sorgularında kullanılabilir ve genellikle GROUP BY komutu ile birlikte kullanılır.
+
+*-COUNT()*
+
+- "employees" tablosunda kaç tane kayıt olduğunu hesaplamak için aşağıdaki sorguyu kullanabiliriz:
+
+      SELECT COUNT(*) FROM employees;
+  
+- manager_id'si 100 olan kaç çalışan olduğu aşağıdaki sorguyla listelenir:
+  
+      SELECT COUNT(employee_id) FROM employees WHERE manager_id= 100;
+
+***COUNT fonksiyonu, NULL değerlerini saymaz. Eğer NULL değerleri dahil edilmek isteniyorsa COUNT(column_name) yerine COUNT(*) kullanılmalıdır.
+
+*-COUNT() with GROUP BY*
+
+- Aşağıdaki SQL sorgusu "employees" tablosundaki kişilerin departmanlara göre gruplandırılmış sayısını döndürür.
+
+      SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;
+
+*-SUM, AVG & GROUP BY*
+
+- SQL'de SUM fonksiyonu, bir tablonun belirli bir sütununda bulunan sayısal değerlerin toplamını hesaplar. Bu fonksiyon genellikle veritabanındaki verilerin toplamını belirlemek için kullanılır. SUM fonksiyonu sadece SELECT sorgularında kullanılabilir ve genellikle GROUP BY komutu ile birlikte kullanılır.
+
+       SELECT department_id, SUM(salary) FROM employees GROUP BY department_id;
+
+- SQL'de AVG fonksiyonu, bir tablonun belirli bir sütununda bulunan sayısal değerlerin ortalamasını hesaplar. Bu fonksiyon genellikle veritabanındaki verilerin ortalamasını belirlemek için kullanılır. AVG fonksiyonu sadece SELECT sorgularında kullanılabilir ve genellikle GROUP BY komutu ile birlikte kullanılır.
+
+      SELECT department_id, AVG(salary) FROM employees GROUP BY department_id;
+
+*-MIN, MAX & GROUP BY*
+
+- SQL'de MAX fonksiyonu, bir tablonun belirli bir sütununda bulunan en yüksek değeri döndürür. Bu fonksiyon genellikle veritabanındaki verilerin en yüksek değerini belirlemek için kullanılır. MAX fonksiyonu sadece SELECT sorgularında kullanılabilir ve genellikle GROUP BY komutu ile birlikte kullanılır.
+
+      SELECT MAX(salary) FROM employees WHERE department_id = 8;
+      SELECT department_id, MAX(salary) FROM employees GROUP BY department_id;
+
+- SQL'de MIN fonksiyonu, bir tablonun belirli bir sütununda bulunan en düşük değeri döndürür. Bu fonksiyon genellikle veritabanındaki verilerin en düşük değerini belirlemek için kullanılır. MIN fonksiyonu sadece SELECT sorgularında kullanılabilir ve genellikle GROUP BY komutu ile birlikte kullanılır.
+
+      SELECT MIN(salary) FROM employees WHERE department_id = 3;
+      SELECT department_id, MIN(salary) FROM employees GROUP BY department_id;
+
+
+**6.SQL'de JOIN Komutu**
+
+- SQL join işlemleri, bir veya daha fazla tablo arasında veri eşleme işlemidir. Tablolar arasındaki ilişkilere göre farklı join türleri bulunmaktadır.
+
+  1. Inner Join: Veritabanındaki iki veya daha fazla tablo arasındaki eşleşen verilerin birleştirilmesini sağlar. Inner join, yalnızca ilişkili olan verilerin seçilmesine olanak tanır. İlişkili veriler, belirli bir kriter (örneğin, birleştirme anahtarı) üzerinden eşleştirilir. Eşleşmeyen veriler atılır ve sadece eşleşen veriler görüntülenir. Inner join, verileri birleştirirken verilerin verimli bir şekilde sorgulanmasını ve analiz edilmesini sağlar.
+  2. Left Join: Veritabanındaki iki veya daha fazla tablo arasındaki verilerin birleştirilmesini sağlar. Left join, sol tablo içindeki tüm verileri ve sağ tablo ile eşleşen verileri seçer. Eşleşmeyen sağ tablo verileri NULL olarak görüntülenir. Bu tür bir join, sol tablo verilerinin tümünün görüntülenmesini ve eşleşmeyen sağ tablo verilerinin belirlenmesini sağlar. Left join, verilerin tamamının analiz edilmesi, raporlama veya veri keşfetme gibi amaçlar için kullanılabilir.
+  3. Right Join: Veritabanındaki iki veya daha fazla tablo arasındaki verilerin birleştirilmesini sağlar. Right join, sağ tablo içindeki tüm verileri ve sol tablo ile eşleşen verileri seçer. Eşleşmeyen sol tablo verileri NULL olarak görüntülenir. Bu tür bir join, sağ tablo verilerinin tümünün görüntülenmesini ve eşleşmeyen sol tablo verilerinin belirlenmesini sağlar. Right join, verilerin tamamının analiz edilmesi, raporlama veya veri keşfetme gibi amaçlar için kullanılabilir.
+  4. Full Outer Join: Veritabanındaki iki veya daha fazla tablo arasındaki verilerin tam birleştirilmesini sağlar. Full outer join, sol ve sağ tablodaki tüm verileri, her iki tablo arasındaki eşleşen ve eşleşmeyen verileri de dahil olmak üzere seçer. Eşleşmeyen veriler NULL olarak görüntülenir. Full outer join, verilerin tamamının analiz edilmesi, raporlama veya veri keşfetme gibi amaçlar için kullanılabilir. Ayrıca, iki tablo arasındaki eşleşmeyen verilerin belirlenmesine ve düzeltilmesine yardımcı olabilir.
+  5. Cross Join: Veritabanındaki iki veya daha fazla tablo arasında herhangi bir ilişki olmaksızın verilerin birleştirilmesini sağlar. Bu join türü, her bir kayıt için diğer tablonun tüm kayıtlarıyla birleştirilmesini sağlar. Yani bir tablo içindeki her bir kayıt diğer tablo içindeki tüm kayıtlarla eşleştirilir. Cross join, verileri çok fazla artırabilir ve performans sorunlarına yol açabilir, bu yüzden performansı önemli olan uygulamalarda sıklıkla kullanılmaz. Ancak veri keşfetme ve analitik uygulamalarda kullanılabilir.
+
