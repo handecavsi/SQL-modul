@@ -644,3 +644,12 @@ Join komutlarının görselleştirilmesi aşağıdaki gibidir:
 - Bu iki sorgunun çıktıları ise şöyle görünecektir:
 
 <img width="529" alt="Ekran Resmi 2023-09-21 17 08 38" src="https://github.com/handecavsi/SQL-modul/assets/34586454/71c78e30-70a9-4c39-b15c-a14d879cbd94">
+
+
+UNION ve UNION ALL komutlarının kullanımı durumlarına göre değişebilir, ancak genel olarak aşağıdaki durumlarda kullanılabilir:
+
+- Birden fazla tablo için veri toplama: Eğer birden fazla tablo içinden aynı veri türlerine sahip sütunları birleştirmek isterseniz, UNION veya UNION ALL kullanabilirsiniz.
+- Veri filtreleme: SELECT sorguları ile farklı veri kümelerini filtreleyebilir ve sonuçları UNION veya UNION ALL ile birleştirebilirsiniz.
+- Veri birleştirme: Veri birleştirme işlemi yaparken UNION veya UNION ALL kullanabilirsiniz. Örneğin, aynı müşterinin birden fazla siparişi olsun ve her siparişin farklı bir tablo içinde olduğunu düşünelim. Bu verileri birleştirmek için UNION veya UNION ALL kullanabilirsiniz.
+- Yinelenen verileri içermemek: Eğer yinelenen verileri içermemek isterseniz, UNION kullanmalısınız. Ancak, yinelenen verilerin olmasının önemi yoksa, UNION ALL kullanabilirsiniz.
+- Her durumda en uygun komutu seçmek, veri yapısı ve işlem gereksinimlerine bağlı olarak değişebilir.
