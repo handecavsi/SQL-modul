@@ -653,3 +653,16 @@ UNION ve UNION ALL komutlarının kullanımı durumlarına göre değişebilir, 
 - Veri birleştirme: Veri birleştirme işlemi yaparken UNION veya UNION ALL kullanabilirsiniz. Örneğin, aynı müşterinin birden fazla siparişi olsun ve her siparişin farklı bir tablo içinde olduğunu düşünelim. Bu verileri birleştirmek için UNION veya UNION ALL kullanabilirsiniz.
 - Yinelenen verileri içermemek: Eğer yinelenen verileri içermemek isterseniz, UNION kullanmalısınız. Ancak, yinelenen verilerin olmasının önemi yoksa, UNION ALL kullanabilirsiniz.
 - Her durumda en uygun komutu seçmek, veri yapısı ve işlem gereksinimlerine bağlı olarak değişebilir.
+
+**8. SQL’DE ALT SORGULAR (SUBQUERY)**
+
+- SQL'de "alt sorgu" (subquery), bir başka sorgunun içinde yer alan ve veri çekmek için kullanılan bir sorgu anlamında kullanılır. Bu sorgular, bir çok koşul veya filtreleme uygulanmasına olanak tanır ve çoklu tablo işlemleri yapmak için kullanılabilir.
+
+- SQL'de alt sorgular, bir veri tabanındaki verileri daha karmaşık veya çok katmanlı sorgular oluşturmak için kullanılabilir. Örnek olarak:
+
+  1. Verileri filtrelemek: Alt sorgular, verileri belirli bir kriterle sınırlandırarak daha küçük veri kümelerini oluşturmanıza olanak tanır.
+  2. İç içe sorgular yapmak: Alt sorgular, bir tablonun verilerini başka bir tablo ile eşleştirmek ve veri çekmek için kullanılabilir.
+  3. Koşullu sorgular yapmak: Alt sorgular, bir sorgunun sonucuna göre diğer sorguların yürütülmesini sağlar.
+  4. Çoklu tablo işlemleri yapmak: Alt sorgular, bir veri tabanındaki birden fazla tablonun verilerini birleştirmek ve analiz etmek için kullanılabilir.
+
+- SQL'de iç içe sorgular, SELECT, FROM, WHERE, HAVING, ve GROUP BY gibi komutlardan sonra yazılabilir. İç içe sorgular, verileri filtrelemek, birleştirmek, gruplandırmak veya birleştirilmiş verilere göre işlem yapmak için kullanılabilir.
