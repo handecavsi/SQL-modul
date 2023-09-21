@@ -491,5 +491,5 @@ SELECT city, COUNT(DISTINCT name) FROM customers GROUP BY city; --customers tabl
 
          ON students.student_id = departments.student_id;
 
-
+<img width="255" alt="Ekran Resmi 2023-09-21 16 42 47" src="https://github.com/handecavsi/SQL-modul/assets/34586454/f4f0d7a0-b5ef-4c96-ae0f-1e702068265c">
 
