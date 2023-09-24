@@ -93,19 +93,26 @@ Non LFL verilerini analiz ederek, genel satış performanslarını daha iyi anla
 
 Parakende sektöründe "FTB" (First Time Buyer) raporlama, bir perakende şirketinin belirli bir dönemde veya belirli bir kampanya sırasında ilk kez müşteri olan veya şirketin ürün veya hizmetlerini ilk kez satın alan müşterileri tanımlamak ve analiz etmek için kullanılan bir analitik yaklaşımdır. FTB raporlaması, şirketin pazarlama stratejilerini, müşteri çekme yöntemlerini ve müşteri sadakatini değerlendirmek için önemlidir. İşte FTB raporlamasının bazı temel bileşenleri:
 
-•	Müşteri Tanımlama: FTB raporlaması, ilk kez alışveriş yapan müşterileri tanımlamak için kullanılır. Bu, genellikle müşterinin adını, iletişim bilgilerini ve alışveriş geçmişini içerir.
+•	Müşteri Tanımlama: FTB raporlaması, ilk kez alışveriş yapan müşterileri tanımlamak için kullanılır. 
+Bu, genellikle müşterinin adını, iletişim bilgilerini ve alışveriş geçmişini içerir.
 
-•	Alışveriş Geçmişi Analizi: FTB müşterilerinin alışveriş geçmişi incelenir. Bu, hangi ürünleri veya hizmetleri satın aldıklarını, ne kadar harcama yaptıklarını ve hangi kanalları veya promosyonları kullandıklarını içerir.
+•	Alışveriş Geçmişi Analizi: FTB müşterilerinin alışveriş geçmişi incelenir. Bu, hangi ürünleri veya hizmetleri satın aldıklarını, 
+ne kadar harcama yaptıklarını ve hangi kanalları veya promosyonları kullandıklarını içerir.
 
-•	İlk Alışveriş Tutarı: FTB müşterilerinin ilk alışverişlerinde ne kadar harcama yaptıkları belirlenir. Bu, yeni müşterilerin ilk etkileşimlerinde ne kadar değer taşıdığını anlamak için önemlidir.
+•	İlk Alışveriş Tutarı: FTB müşterilerinin ilk alışverişlerinde ne kadar harcama yaptıkları belirlenir. Bu, yeni müşterilerin ilk 
+etkileşimlerinde ne kadar değer taşıdığını anlamak için önemlidir.
  
-•	Dönüşüm Oranları: FTB müşterilerinin dönüşüm oranları izlenir. Yani, ilk kez alışveriş yapan müşterilerin daha sonra tekrar alışveriş yapma olasılığı değerlendirilir.
+•	Dönüşüm Oranları: FTB müşterilerinin dönüşüm oranları izlenir. Yani, ilk kez alışveriş yapan müşterilerin daha sonra tekrar 
+alışveriş yapma olasılığı değerlendirilir.
 
-•	Pazarlama Etkinliği Değerlendirmesi: FTB raporlaması, hangi pazarlama kanallarının veya kampanyalarının yeni müşteri çekmede en etkili olduğunu belirlemek için kullanılır. Bu, pazarlama stratejilerinin optimize edilmesine yardımcı olur.
+•	Pazarlama Etkinliği Değerlendirmesi: FTB raporlaması, hangi pazarlama kanallarının veya kampanyalarının yeni müşteri çekmede 
+en etkili olduğunu belirlemek için kullanılır. Bu, pazarlama stratejilerinin optimize edilmesine yardımcı olur.
 
-•	Müşteri Segmentasyonu: FTB müşterileri, belirli demografik özelliklere, coğrafi konumlara veya davranışsal özelliklere göre segmentlere ayrılabilir. Bu, farklı FTB gruplarının davranışlarını daha ayrıntılı bir şekilde anlamak için kullanılır.
+•	Müşteri Segmentasyonu: FTB müşterileri, belirli demografik özelliklere, coğrafi konumlara veya davranışsal özelliklere göre 
+segmentlere ayrılabilir. Bu, farklı FTB gruplarının davranışlarını daha ayrıntılı bir şekilde anlamak için kullanılır.
 
-•	Sadakat Programları: FTB müşterilerinin sadakat programlarına katılımı ve bu programları ne sıklıkta kullanma eğiliminde oldukları analiz edilir. Bu, müşterilerin uzun vadeli sadakatlerini kazanma stratejilerini değerlendirmeye yardımcı olur.
+•	Sadakat Programları: FTB müşterilerinin sadakat programlarına katılımı ve bu programları ne sıklıkta kullanma eğiliminde oldukları 
+analiz edilir. Bu, müşterilerin uzun vadeli sadakatlerini kazanma stratejilerini değerlendirmeye yardımcı olur.
 
 FTB raporlaması, perakende şirketlerinin müşteri edinme stratejilerini geliştirmelerine ve yeni müşterileri müşteri tabanına 
 dönüştürmelerine yardımcı olan önemli bir araçtır. Bu raporlama, işletmelerin daha iyi müşteri odaklı kararlar almasına ve pazarlama 
