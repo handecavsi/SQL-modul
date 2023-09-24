@@ -5,40 +5,89 @@ https://www.kaggle.com/datasets/omercolakoglu/10million-rows-turkish-market-sale
 
 Parakende sektöründe LFL Raporlama
 
-LFL Raporlama’nın perakende şirketlerindeki önemini detaylandırmadan önce LFL (Like For Like) analizininin temeli olan Perakende Takvimi’ni (Merch Calendar) açıklamakta fayda var. Perakende sektöründe 4-5-4 takvimi olarak ta adlandırılan bu yapının şirketlerin iş zekası sistemlerinde oluşturulması gerekir.
+LFL Raporlama’nın perakende şirketlerindeki önemini detaylandırmadan önce LFL (Like For Like) analizininin temeli olan 
+Perakende Takvimi’ni (Merch Calendar) açıklamakta fayda var. Perakende sektöründe 4-5-4 takvimi olarak ta adlandırılan bu yapının 
+şirketlerin iş zekası sistemlerinde oluşturulması gerekir.
 
-Perakende sektöründe genel olarak haftalık değerlendirmeler yapılır ve geçen yılın aynı haftasındaki günlerin eşit olması sağlanır. Aksi durumda pazar ve performans koşullarından bağımsız olarak karşılaştırma yapılan dönemler arasında büyüme oranları olumsuz etkilenecektir.
+Perakende sektöründe genel olarak haftalık değerlendirmeler yapılır ve geçen yılın aynı haftasındaki günlerin eşit olması sağlanır. 
+Aksi durumda pazar ve performans koşullarından bağımsız olarak karşılaştırma yapılan dönemler arasında büyüme oranları olumsuz 
+etkilenecektir.
 
-Bir hafta içerisindeki günlerin hafta içi ve hafta sonu etkileri birbirinden farklıdır. Bu farkın etkisinin karşılaştırma yapılan dönemler için aynı olmasını sağlamak LFL Raporlama’nın temelini oluşturur. Örneğin; 2016 Ocak ayında 5 Cumartesi, 5 Pazar günü varken 2017 yılının aynı ayında 4 Cumartesi, 5 Pazar günü vardır.  Bu yıllara ait Ocak ayı karşılaştırmasını Perakende Takvimi ne göre yapmazsak doğal olarak bir fark oluşacaktır ve gerçek performansı ölçmekten uzak olunacaktır. Bu etkiyi ortadan kaldırmak için ve LFL Raporlama yapabilmek için Perakende Takvimi düzenlemiştir.
+Bir hafta içerisindeki günlerin hafta içi ve hafta sonu etkileri birbirinden farklıdır. Bu farkın etkisinin karşılaştırma yapılan 
+dönemler için aynı olmasını sağlamak LFL Raporlama’nın temelini oluşturur. Örneğin; 2016 Ocak ayında 5 Cumartesi, 5 Pazar günü varken 
+2017 yılının aynı ayında 4 Cumartesi, 5 Pazar günü vardır.  Bu yıllara ait Ocak ayı karşılaştırmasını Perakende Takvimi ne göre 
+yapmazsak doğal olarak bir fark oluşacaktır ve gerçek performansı ölçmekten uzak olunacaktır. Bu etkiyi ortadan kaldırmak için ve 
+LFL Raporlama yapabilmek için Perakende Takvimi düzenlemiştir.
 
 Her yıl National Retail Institute” tarafından yayımlanan Perakende Takvimi;
 
 •	Yıl, önceki yılı takip ederek, Pazartesi’den Pazar’a 52 haftaya bölünür.
-•	4-5-4 haftalık dilimler halinde Perakende ayları oluşturulur. Ocak-Şubat-Nisan-Mayıs-Temmuz-Ağustos-Ekim-Kasım 4’er hafta, Mart-Haziran-Eylül-Aralık 5’er haftadan oluşur.
+
+•	4-5-4 haftalık dilimler halinde Perakende ayları oluşturulur. Ocak-Şubat-Nisan-Mayıs-Temmuz-Ağustos-Ekim-Kasım 4’er hafta, 
+Mart-Haziran-Eylül-Aralık 5’er haftadan oluşur.
+
 •	Her çeyrek yıl eşit haftadan oluşur.
+
 •	Her perakende yılında da eşit 364 gün (7×52 gün)’den bulunur.
-•	LFL prensiplerine göre, ardışık 2 yıl karşılaştırılırken Merch Yılı ve Merch ayına, haftasına ya da YTD sayacına göre karşılaştırma yapılır. Böylece karşılaştırma ekseninin özdeş olması sağlanır.
-Perakende takvimi belli bir mantığa sahip olup iş zekası sistemlerinde 5-10 yıllık süreleri kapsayacak şekilde database de zaman tabloları oluşturulabilir.
-LFL Raporlamanın şirketlerin iş zekası sistemlerinde doğru raporlama yapabilmesi için aşağıdaki işlemlerin uygulanması gereklidir.
-•	ERP sisteminde tüm mağaza kartlarında ilgili mağazanın AÇILIŞ ve KAPANIŞ tarihlerinin girişlerinin eksiksiz ve güncel olarak yapılması
-•	ERP sisteminde tüm mağaza kartlarında ilgili mağaza için birden fazla kez giriş yapılabilecek REFIT (Mağaza Yenilenmesi) BAŞLANGIÇ ve BİTİŞ tarihlerinin eksiksiz giriş yapılmış olması
+
+•	LFL prensiplerine göre, ardışık 2 yıl karşılaştırılırken Merch Yılı ve Merch ayına, haftasına ya da YTD sayacına
+göre karşılaştırma yapılır. Böylece karşılaştırma ekseninin özdeş olması sağlanır.Perakende takvimi belli bir mantığa sahip olup iş 
+zekası sistemlerinde 5-10 yıllık süreleri kapsayacak şekilde database de zaman tabloları oluşturulabilir.
+
+LFL Raporlamanın şirketlerin iş zekası sistemlerinde doğru raporlama yapabilmesi için aşağıdaki işlemlerin uygulanması gereklidir:
+
+•	ERP sisteminde tüm mağaza kartlarında ilgili mağazanın AÇILIŞ ve KAPANIŞ tarihlerinin girişlerinin eksiksiz ve güncel olarak 
+yapılması
+
+•	ERP sisteminde tüm mağaza kartlarında ilgili mağaza için birden fazla kez giriş yapılabilecek REFIT (Mağaza Yenilenmesi) BAŞLANGIÇ 
+ve BİTİŞ tarihlerinin eksiksiz giriş yapılmış olması
+
 •	ERP sisteminde tüm mağaza kartlarında ilgili mağaza için M2 bilgisinin giriş yapılmış olması
+
 •	Perakende Takviminin YIL-AY-HAFTA-GÜN olarak raporlama sisteminde tablolarının oluşturulması ve doldurulması
+
 •	MAĞAZA-GÜN- LFL mi? Alanlarından oluşan tablo oluşturmak ve her gün bu alanları dolduracak script yazmak.
 
 LFL Satış Oranı (Like For Like)
-Aynı şartlar altında bir önceki döneme, yıla göre satış miktarındaki değişimi ifade eden LFL, perakende sektöründeki en önemli satış KPI’larından biridir. Eğer yıldan yıla yeni mağazalar, satış kanalları açıyor, veya bir kısmını kapıyorsanız bu parametreyi mutlaka ölçmelisiniz. “(Son yıldaki satış kanalları arasından sadece geçen dönemde de var olan kanalların toplam satış tutarı / bir önceki dönemde var olan satış kanallarında yapılan satış tutarı) * 100” formülüyle hesaplanan LFL’in Büyüme’den farkı ise iki farklı zaman diliminde, aynı mağazalarda yapılan toplam satışın karşılaştırılmasıdır.  Çünkü bazen yeni mağazalar açtığınız için toplam satışınız artabilir, ama bu sizin ürün gamınızın daha iyi olduğu, fiyat politikanızın daha doğru olduğu, müşterilerinizin arttığı anlamına gelmez. Birebir karşılaştırma yapmak için bir önceki yılın birebir aynı şartlarındaki satış kıyaslamasını yapmalısınız. 
-Non-LFL
-Non LFL (Like for Like olmayan) kavramı, perakende sektöründe Like for Like (LFL) ile karşılaştırılamayacak şekilde değişiklik gösteren veya farklı bir temele dayanan satışları ifade eder. LFL, aynı mağazalarda iki farklı zaman diliminde yapılan satışların karşılaştırılmasıyla hesaplanırken, Non LFL, bu kriterlere uymayan satışları temsil eder.
-Non LFL satışları, aşağıdaki gibi farklı faktörlere bağlı olarak değişebilir:
-Yeni Mağazaların Açılması veya Kapanması: Bir perakende şirketi, belirli bir dönemde yeni mağazalar açabilir veya mevcut mağazaları kapatabilir. Bu nedenle, bu mağazaların satışları LFL kriterlerine uymaz ve Non LFL olarak kabul edilir.
-Mağaza Yeniden Konumlandırması veya Yenileme: Mevcut mağazaların yerini değiştirmek veya yenilemek, satışları etkileyebilir ve bu durum Non LFL satışlarına yol açabilir.
-Ürün Assortmanındaki Değişiklikler: Bir mağaza, ürün yelpazesini değiştirebilir veya yeni ürünleri stoklayabilir. Bu da LFL dışı satışları etkiler.
-Fiyat Değişiklikleri: Belirli bir dönemde fiyat değişiklikleri, tüketici harcamalarını ve satışları etkileyebilir. Bu nedenle, fiyat değişiklikleri Non LFL satışlarını oluşturabilir.
-Özel Promosyonlar ve Kampanyalar: Özel promosyonlar, indirimler veya kampanyalar, dönemsel satışlarda dalgalanmalara neden olabilir ve bu da Non LFL satışlarına yol açar.
-Mevsimsel Değişiklikler: Bazı sektörlerde mevsimsel etkiler satışları etkileyebilir. Bu nedenle, mevsimsel faktörler Non LFL satışlarını şekillendirebilir.
 
-Non LFL satışları, perakende şirketlerinin performansını ve büyümesini değerlendirmek için önemlidir, çünkü bu satışlar, LFL satışlarından farklı olarak şirketin stratejik kararları ve operasyonel değişiklikleri yansıtır. Şirketler, hem LFL hem de Non LFL verilerini analiz ederek, genel satış performanslarını daha iyi anlayabilirler.
+Aynı şartlar altında bir önceki döneme, yıla göre satış miktarındaki değişimi ifade eden LFL, perakende sektöründeki en önemli satış 
+KPI’larından biridir. Eğer yıldan yıla yeni mağazalar, satış kanalları açıyor, veya bir kısmını kapıyorsanız bu parametreyi mutlaka 
+ölçmelisiniz. 
+“(Son yıldaki satış kanalları arasından sadece geçen dönemde de var olan kanalların toplam satış tutarı / bir önceki dönemde var olan 
+satış kanallarında yapılan satış tutarı) * 100” formülüyle hesaplanan LFL’in Büyüme’den farkı ise iki farklı zaman diliminde, 
+aynı mağazalarda yapılan toplam satışın karşılaştırılmasıdır.  Çünkü bazen yeni mağazalar açtığınız için toplam satışınız artabilir, 
+ama bu sizin ürün gamınızın daha iyi olduğu, fiyat politikanızın daha doğru olduğu, müşterilerinizin arttığı anlamına gelmez. 
+Birebir karşılaştırma yapmak için bir önceki yılın birebir aynı şartlarındaki satış kıyaslamasını yapmalısınız. 
+
+Non-LFL
+
+Non LFL (Like for Like olmayan) kavramı, perakende sektöründe Like for Like (LFL) ile karşılaştırılamayacak şekilde değişiklik 
+gösteren veya farklı bir temele dayanan satışları ifade eder. LFL, aynı mağazalarda iki farklı zaman diliminde yapılan satışların 
+karşılaştırılmasıyla hesaplanırken, Non LFL, bu kriterlere uymayan satışları temsil eder.
+
+Non LFL satışları, aşağıdaki gibi farklı faktörlere bağlı olarak değişebilir:
+
+Yeni Mağazaların Açılması veya Kapanması: Bir perakende şirketi, belirli bir dönemde yeni mağazalar açabilir veya mevcut mağazaları 
+kapatabilir. Bu nedenle, bu mağazaların satışları LFL kriterlerine uymaz ve Non LFL olarak kabul edilir.
+
+Mağaza Yeniden Konumlandırması veya Yenileme: Mevcut mağazaların yerini değiştirmek veya yenilemek, satışları etkileyebilir ve 
+bu durum Non LFL satışlarına yol açabilir.
+
+Ürün Assortmanındaki Değişiklikler: Bir mağaza, ürün yelpazesini değiştirebilir veya yeni ürünleri stoklayabilir. 
+Bu da LFL dışı satışları etkiler.
+
+Fiyat Değişiklikleri: Belirli bir dönemde fiyat değişiklikleri, tüketici harcamalarını ve satışları etkileyebilir. Bu nedenle, 
+fiyat değişiklikleri Non LFL satışlarını oluşturabilir.
+
+Özel Promosyonlar ve Kampanyalar: Özel promosyonlar, indirimler veya kampanyalar, dönemsel satışlarda dalgalanmalara neden olabilir 
+ve bu da Non LFL satışlarına yol açar.
+
+Mevsimsel Değişiklikler: Bazı sektörlerde mevsimsel etkiler satışları etkileyebilir. Bu nedenle, mevsimsel faktörler Non LFL 
+satışlarını şekillendirebilir.
+
+Non LFL satışları, perakende şirketlerinin performansını ve büyümesini değerlendirmek için önemlidir, çünkü bu satışlar, 
+LFL satışlarından farklı olarak şirketin stratejik kararları ve operasyonel değişiklikleri yansıtır. Şirketler, hem LFL hem de 
+Non LFL verilerini analiz ederek, genel satış performanslarını daha iyi anlayabilirler.
 
 "FTB" (First Time Buyer)
 
@@ -58,5 +107,7 @@ Parakende sektöründe "FTB" (First Time Buyer) raporlama, bir perakende şirket
 
 •	Sadakat Programları: FTB müşterilerinin sadakat programlarına katılımı ve bu programları ne sıklıkta kullanma eğiliminde oldukları analiz edilir. Bu, müşterilerin uzun vadeli sadakatlerini kazanma stratejilerini değerlendirmeye yardımcı olur.
 
-FTB raporlaması, perakende şirketlerinin müşteri edinme stratejilerini geliştirmelerine ve yeni müşterileri müşteri tabanına dönüştürmelerine yardımcı olan önemli bir araçtır. Bu raporlama, işletmelerin daha iyi müşteri odaklı kararlar almasına ve pazarlama harcamalarını optimize etmesine yardımcı olur.
+FTB raporlaması, perakende şirketlerinin müşteri edinme stratejilerini geliştirmelerine ve yeni müşterileri müşteri tabanına 
+dönüştürmelerine yardımcı olan önemli bir araçtır. Bu raporlama, işletmelerin daha iyi müşteri odaklı kararlar almasına ve pazarlama 
+harcamalarını optimize etmesine yardımcı olur.
 
