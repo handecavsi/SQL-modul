@@ -1459,4 +1459,46 @@ _LAST VALUE Fonksiyonu_
 -  "LAST_VALUE" fonksiyonu, son satış miktarını belirler. Bu örnek, "LAST_VALUE" fonksiyonunun, bir sütundaki son değere ihtiyaç duyulan durumlarda nasıl kullanılabileceğini gösterir.
     
 
-**Dipnot: Window functions group by'daki bazı kısıtlamaları ortadan kaldırır. 
+**Dipnot: Window functions group by'daki bazı kısıtlamaları ortadan kaldırır.*
+
+- Örneğin aşağıdaki gibi bir group by sorgusu yazıldığında;
+
+      select 
+	    count(distinct(employee_id)) as calisan_sayısı,
+	    department_id,
+	    first_name,
+	    last_name
+      from employees
+      group by department_id
+
+hata verecektir. Ya da aşağıdaki gibi bir sorgu yazıldığında;
+
+    select 
+	    sum(salary) toplam_maas,
+	    department_id,
+	    first_name,
+	    last_name
+    from employees
+    group by department_id
+
+Gene hata verecektir. Group by ile first_name, last_name isimleri getirilemez. Window fonksiyonları
+bu kısıtları ortadan kaldırmak için kullanışlıdır.
+
+    select 
+	    first_name, 
+	    last_name,
+	    department_id,
+	    sum(salary) over (partition by department_id) as sum_salary
+    from employees
+
+
+    select 
+	    first_name, 
+	    last_name,
+	    department_id,
+	    count(employee_id) over (partition by department_id) as calisan_sayisi
+    from employees
+
+
+    
+
