@@ -1458,3 +1458,5 @@ _LAST VALUE Fonksiyonu_
 
 -  "LAST_VALUE" fonksiyonu, son satış miktarını belirler. Bu örnek, "LAST_VALUE" fonksiyonunun, bir sütundaki son değere ihtiyaç duyulan durumlarda nasıl kullanılabileceğini gösterir.
     
+
+**Dipnot: Window functions group by'daki bazı kısıtlamaları ortadan kaldırır. 
