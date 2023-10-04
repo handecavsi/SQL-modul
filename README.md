@@ -271,16 +271,16 @@ TRIM([LEADING | TRAILING | BOTH] trim_character FROM string)
 
 Örnekler:
 
-    SELECT TRIM('   hello   '); -- "hello" <br></br>
-    SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234" <br></br>
-    SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello" <br></br>
+    SELECT TRIM('   hello   '); -- "hello" 
+    SELECT TRIM(LEADING '0' FROM '0001234'); -- "1234" 
+    SELECT TRIM(TRAILING '!' FROM 'hello!!!!'); -- "hello" 
     SELECT TRIM(BOTH ' ' FROM '   hello   '); -- "hello"
 
 *-REPLACE*
 
 - PostgreSQL'deki REPLACE() fonksiyonu, bir karakter dizisinde belirli bir karakter dizisini bulur ve onu başka bir karakter dizisiyle değiştirir.
 
-      SELECT REPLACE(first_name, 'a', 'o'), REPLACE(last_name, 'a', 'o') FROM employees; --Tüm çalışanların isimlerindeki "a" harfini "o" harfi ile değiştirir. <br></br>
+      SELECT REPLACE(first_name, 'a', 'o'), REPLACE(last_name, 'a', 'o') FROM employees; --Tüm çalışanların isimlerindeki "a" harfini "o" harfi ile değiştirir. 
 
       SELECT REPLACE(email, 'sqltutorial.org', 'yahoo.com') FROM employees; -- e-posta adreslerindeki "sqltutorial.org" uzantısını "yahoo.com" ile  değiştirir.
 
@@ -1053,3 +1053,57 @@ Ayrıca;
 - position: desen aramanın başlayacağı pozisyon. Varsayılan değeri 1'dir.
 - occurrence: desenin kaçıncı kez tekrar ettiği bilgisini içeren bir sayı. Varsayılan değeri 1'dir.
 - flags: opsiyonel bir bayraklar dizisi (array) veya NULL. Bayraklar, arama sırasında kullanılan ek ayarları belirtmek için kullanılır.
+
+**13. Window Fonksiyonları**
+
+- window functions (pencere işlevleri) bir veri kümesindeki verileri gruplandırmak, sıralamak, analiz etmek ve özetlemek için kullanılan özel bir fonksiyon türüdür. Window functions, verilerin üzerinde hareketli bir pencere (window) oluşturarak çalışırlar ve pencerenin içindeki verilere uygulanır. Pencere, veri kümesindeki belirli bir sıraya göre belirlenir ve pencere boyutu ve konumu özelleştirilebilir.
+- Bu fonksiyonlar, GROUP BY veya HAVING gibi diğer SQL işlevlerinden farklı olarak, aynı sorguda kullanıldığında her bir satır için bir sonuç döndürür ve veri kümesinin özeti olarak çalışmazlar. Window functions, genellikle verilerin sıralanması veya toplamı gibi bir önceki veya bir sonraki satıra göre işlem yapılmasını gerektiren işlemler için kullanılır.
+
+        <window function> ( [expression] ) OVER (
+
+            [PARTITION BY partition_expression, ... ]
+
+            [ORDER BY sort_expression [ASC|DESC], ... ]
+
+            [ROWS frame_specification] 
+
+        ) 
+**Window function:** Bir hesaplama yapmak veya analiz etmek için kullanılan özel bir SQL işlevidir. Örnekler arasında SUM, AVG, ROW_NUMBER, RANK, LAG, LEAD ve NTILE sayılabilir.
+**Partition by:** Veri kümesinin bölüneceği sütunlar için bir ifadedir. Bu ifade, her bölme için ayrı bir hesaplama yapmak için kullanılır. Yani, belirli bir sütuna göre gruplandırarak birden fazla pencere oluşturulabilir.
+**Order by:** Veri kümesindeki sıralama sütunlarının bir ifadesidir. Bu ifade, pencere sıralamasını belirlemek için kullanılır. Örneğin, LAG veya LEAD fonksiyonları ile bir önceki veya bir sonraki satıra göre hesaplama yapmak isteyenler için sıralama yapmak önemlidir.
+**Frame specification:** Window function'ın çalıştığı pencerenin boyutunu belirleyen bir ifadedir. Bu ifade, sıradan belirli bir sayıda satır önce ve sonra olacak şekilde belirtilen ROWS BETWEEN ifadesi ile belirlenir. Ayrıca, bir RANGE BETWEEN ifadesi ile belirtilen sürekli bir aralıkta çalıştırılabilir. 
+
+    | Month | Item  | Amount |
+
+    +-------+-------+--------+
+
+    | Jan   | Apple | 10     |
+
+    | Jan   | Pear  | 20     |
+
+    | Feb   | Apple | 15     |
+
+    | Feb   | Pear  | 25     |
+
+Yukarıda verilen sales tablosunda ürün satış miktarları verilmiştir. Her bir ürünün ayrı ayrı satışları olduğunu varsayalım. Her bir ürünün aylık toplam satışını görmemiz gerekiyor. 
+
+    SELECT Month, Item, Amount, SUM(Amount) OVER (PARTITION BY Item) AS TotalSales
+
+    FROM sales;
+
+    Output:
+
+    | Month | Item  | Amount | TotalSales |
+
+    +-------+-------+--------+------------+
+
+    | Jan   | Apple | 10     | 25         |
+
+    | Feb   | Apple | 15     | 25         |
+
+    | Jan   | Pear  | 20     | 45         |
+
+    | Feb   | Pear  | 25     | 45         |
+
+
+Bu örnekte window function kullanımı ile her bir ürünün aylık toplam satışı, PARTITION BY ifadesi ile ürünlere göre gruplandırılarak hesaplanmıştır. Bu şekilde, her bir ürünün aylık toplam satışını elde edebiliriz.
