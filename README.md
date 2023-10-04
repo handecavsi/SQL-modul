@@ -1107,3 +1107,354 @@ Yukarıda verilen sales tablosunda ürün satış miktarları verilmiştir. Her 
 
 
 Bu örnekte window function kullanımı ile her bir ürünün aylık toplam satışı, PARTITION BY ifadesi ile ürünlere göre gruplandırılarak hesaplanmıştır. Bu şekilde, her bir ürünün aylık toplam satışını elde edebiliriz.
+
+_WINDOW FUNCTIONS WITH AGGREGATE_
+
+- Örneğin, "sales" adlı bir tabloda yer alan verileri ele alalım:
+
+      | Month | Store  | SalesAmount |
+
+      +-------+--------+------------+
+
+      | Jan   | Store1 | 100        |
+
+      | Jan   | Store2 | 200        |
+
+      | Feb   | Store1 | 150        |
+
+      | Feb   | Store2 | 250        |
+
+- Bu veri setinde, her ay farklı mağazalarda yapılan satışların toplamı yer alıyor. Her bir mağazanın aylık toplam satışını ve her bir mağazada hangi üründen ne kadar satıldığını hesaplamak için aşağıdaki SQL sorgusunu kullanabiliriz:
+
+      SELECT Month, Store, SalesAmount, SUM(SalesAmount) OVER (PARTITION BY Store) AS StoreTotal,
+
+           SUM(SalesAmount) OVER (PARTITION BY Store, Month) AS ProductTotal
+
+      FROM sales;
+
+      Output:
+
+      | Month | Store  | SalesAmount | StoreTotal | ProductTotal |
+
+      +-------+--------+------------+-----------+--------------+
+
+      | Jan   | Store1 | 100        | 250       | 100          |
+
+      | Jan   | Store2 | 200        | 450       | 200          |
+
+      | Feb   | Store1 | 150        | 250       | 150          |
+
+      | Feb   | Store2 | 250        | 450       | 250          |
+  
+
+  _ROW_NUMBER_
+
+- "ROW_NUMBER" fonksiyonu, sorgu sonucunda dönen her bir satır için benzersiz bir sayısal değer oluşturur. Bu sayılar, belirli bir sıralama düzeni (örneğin, bir sütuna göre artan veya azalan sıralama) içinde sıralanır ve her satıra bir sayı atanır. ROW_NUMBER fonksiyonu, sorgu sonucunda dönen tüm satırlarda benzersiz bir sayısal değer oluşturur ve her satıra bir sıra numarası atar.
+
+- ROW_NUMBER fonksiyonu genellikle, bir tablodan bir alt küme seçerek veya bir tablodaki satırları belirli bir sıralama düzenine göre sıralayarak sorgular oluştururken kullanılır. ROW_NUMBER fonksiyonu, ayrıca verileri sayfalama veya satır sınırlandırma işlemlerinde kullanılan bir araçtır.
+
+- Örneğin, aşağıdaki sorgu, "orders" tablosundan müşteri adına göre gruplandırılmış toplam sipariş sayısını ve her müşteriye ait siparişlerin ROW_NUMBER değerini gösterir:
+
+      SELECT 
+
+      customer_name, 
+
+      COUNT(*) AS total_orders, 
+
+      ROW_NUMBER() OVER (PARTITION BY customer_name ORDER BY order_date) AS row_number
+
+      FROM
+          orders
+      GROUP BY
+          customer_name;
+
+  - Elimizde bir "orders" tablosu olduğunu varsayalım. Bu tablo, bir e-ticaret sitesindeki siparişleri temsil eden kayıtları içermektedir. Her bir siparişin sipariş numarası, müşteri adı, tarih ve toplam tutar bilgileri yer alır. Aşağıdaki SQL sorgusu, her bir siparişe numarasını (row number) atayan bir window function kullanarak bu tablodaki kayıtları sıralayacaktır:
+ 
+        SELECT ROW_NUMBER() OVER (ORDER BY order_date) AS order_number, customer_name, order_date, total_amount
+
+        FROM orders;
+
+        Output:
+
+        | order_number | customer_name | order_date | total_amount |
+
+        +--------------+---------------+------------+--------------+
+
+        | 1            | John Smith    | 2022-01-01 | 120.00       |
+
+        | 2            | Jane Doe      | 2022-01-05 | 75.00        |
+
+        | 3            | Bob Johnson   | 2022-01-06 | 250.00       |
+
+        | 4            | Alice Brown   | 2022-01-10 | 500.00       |
+
+        | 5            | Mark Wilson   | 2022-01-15 | 100.00       |
+
+_RANK_
+
+- "RANK" fonksiyonu, sorgu sonucunda dönen verileri belirli bir sıralama düzenine göre sıralar ve her bir satıra bir sıra numarası atar. Ancak, ROW_NUMBER fonksiyonundan farklı olarak, RANK fonksiyonu, birden fazla satırın aynı sıralama düzeninde aynı değere sahip olması durumunda aynı sıra numarasını atar.
+
+- RANK fonksiyonu, genellikle bir tablodan bir alt küme seçerek veya bir tablodaki satırları belirli bir sıralama düzenine göre sıralayarak sorgular oluştururken kullanılır. RANK fonksiyonu, verileri gruplandırıp sıralamak, eşit değerlere sahip verileri ayırmak ve özetleme raporları oluşturmak için kullanışlı bir araçtır.
+
+- Diyelim ki bir üniversitenin öğrenci kayıt sistemine sahipsiniz ve her öğrencinin adı, bölümü ve not ortalaması bilgilerini sakladığınız bir "students" tablonuz var. Aşağıdaki örnek sorgu, her öğrencinin not ortalamasına göre sıralayarak, öğrencilerin aldığı sıralamayı "RANK" fonksiyonu kullanarak gösterir:
+
+      SELECT 
+
+          name, 
+
+          department, 
+
+          grade_average, 
+
+          RANK() OVER (ORDER BY grade_average DESC) AS rank
+
+      FROM students;
+
+      Output:
+
+      | name     | department  | grade_average | rank |
+
+      +----------+-------------+---------------+------+
+
+      | Alice    | Mathematics | 98            | 1    |
+
+      | Bob      | History     | 90            | 2    |
+
+      | Charlie  | Physics     | 90            | 2    |
+
+      | David    | Biology     | 87            | 4    |
+
+      | Elizabeth| Mathematics | 84            | 5    |
+
+- Bu çıktıda, her bir öğrencinin adı, bölümü ve not ortalaması yanı sıra aldığı sıralama da yer almaktadır. "Alice" en yüksek not ortalamasına sahip olduğu için birinci sıraya yerleştirilirken, "Bob" ve "Charlie" aynı not ortalamasına sahip oldukları için ikinci sırayı paylaşırlar. "David" ve "Elizabeth" ise sırasıyla dördüncü ve beşinci sıralarda yer alırlar.
+
+_DENSE RANK_
+
+- DENSE_RANK, SQL'deki bir pencere işlevi (window function) olarak kullanılan bir fonksiyondur. RANK fonksiyonuna benzer şekilde sorgu sonuçlarındaki satırları sıralamaya yarar, ancak RANK fonksiyonundan farklı olarak eşit sıralama değerlerine sahip satırlar için aynı sıra numarası atar ve sıradaki boşlukları atlama özelliğine sahiptir.
+  
+- DENSE_RANK fonksiyonu, RANK fonksiyonundan farklı olarak, eşit sıralama değerlerine sahip satırlar için aynı sıra numarası atar ve sıradaki boşlukları atlama özelliğine sahiptir. Bu özellikleri nedeniyle, özellikle sınıflama veya sıralama yaparken kullanışlı bir araçtır.
+
+- Örneğin, bir "orders" tablosu var ve bu tablo siparişlerin id'si, müşteri id'si ve sipariş miktarı bilgilerini içeriyor.
+
+      SELECT 
+
+           customer_id, 
+
+           order_amount, 
+
+       DENSE_RANK() OVER (PARTITION BY customer_id ORDER BY order_amount DESC) as rank
+
+      FROM orders;
+
+  - Bu sorgu, müşterilerin siparişlerinin miktarına göre sıralanmış halini, her müşterinin sıralamasını ve müşteri id'sini verir. "DENSE_RANK()" fonksiyonu, müşteri id'sine göre ayrılmış ve sipariş miktarına göre sıralanmış bir pencereye uygulanır ve her müşterinin sipariş miktarına göre sıralamasını belirler. Eşit sipariş miktarına sahip müşteriler aynı sıralamaya sahip olacaktır, ancak DENSE_RANK() fonksiyonu sıradaki boşlukları atlar.
+ 
+_PERCENT RANK_
+
+- Percent rank pencere fonksiyonu, her bir satırın sıralama içindeki yüzdelik pozisyonunu hesaplar. Bu fonksiyon, sıralamanın yüzdelik oranını hesaplamak için kullanılır. Özellikle, bir sıralama içindeki her bir öğenin, tüm öğelerin yüzdesel sırası nedir diye sormak istediğinizde kullanılır.
+
+- Bu fonksiyon, "0" ile "1" arasında bir değer döndürür. "0" değeri, sıralamanın en düşük değerini temsil ederken, "1" değeri, sıralamanın en yüksek değerini temsil eder. Diğer tüm değerler ise, sıralamadaki her bir öğenin yüzdelik pozisyonunu ifade eder.
+
+- Varsayalım ki "orders" tablosunda siparişlerin id'si, müşteri id'si ve sipariş miktarı bilgileri tutulmaktadır. Aşağıdaki sorgu, müşterilerin siparişlerinin miktarına göre sıralanmış haliyle birlikte, her bir siparişin yüzdelik pozisyonunu verir:
+
+      SELECT 
+
+          customer_id, 
+
+          order_amount, 
+
+          PERCENT_RANK() OVER (ORDER BY order_amount) as percentile_rank
+
+      FROM orders;
+
+
+  _NTILE Fonksiyonu_
+
+- NTILE() fonksiyonu, bir veri kümesini eşit sayıda parçaya bölerek, her bir parçanın sıralama içindeki yerini belirlemek için kullanılan bir SQL pencere fonksiyonudur. Bu fonksiyon, veri kümesini belirtilen sayıda bölüme ayırarak her bir bölümdeki satırları numaralandırır. Bu sayede, sıralama içindeki her satırın, veri kümesindeki n tane eşit büyüklükteki parçalardan hangisinde yer aldığı belirlenir.
+
+- NTILE() fonksiyonu, bir veri kümesindeki her bir elemanın, kümedeki eşit sayıda parçalardan hangisinde yer aldığını belirlemek için kullanılabilir. Bu sayede, örneğin bir sınıftaki öğrencilerin notlarının sıralamasına göre, sınıfı 5 eşit parçaya bölerek her bir öğrencinin hangi yüzdelik dilimde yer aldığı belirlenebilir.
+
+- Örneğin, "students" adında bir tabloda öğrencilerin isimleri ve notları tutulmaktadır. Bu tablodaki öğrencilerin notlarına göre sıralama yapılarak, her bir öğrencinin hangi yüzdelik dilimde yer aldığı belirlenebilir. Aşağıdaki sorgu, öğrencileri notlarına göre sıralayarak, 4 parçaya ayırır ve her bir öğrencinin hangi yüzdelik dilimde yer aldığını belirler:
+
+      SELECT 
+
+           name, 
+
+           grade, 
+
+       NTILE(4) OVER (ORDER BY grade) as percentile_rank
+
+      FROM students;
+
+  _Lag Fonksiyonu_
+
+- Lag, SQL'de bir önceki satırdaki değerini almak için kullanılır. Lag fonksiyonu, bir sorgu sonucunu, bir sütundaki her bir satırın bir önceki satırındaki değerleri ile genişletebilir.
+ 
+- Lag fonksiyonu genellikle zamana bağlı verilerde kullanılır. Örneğin, bir hisse senedi fiyatı zaman serisindeki her bir günün önceki günündeki fiyatına ihtiyaç duyulabilir.
+ 
+- Örneğin, aşağıdaki sorgu, "orders" adlı bir tablodaki siparişlerin tarihlerine göre önceki tarihlerini gösterir:
+
+      SELECT 
+
+           order_date, 
+
+           LAG(order_date, 1, NULL) OVER (
+
+              ORDER BY order_date
+
+           ) AS prev_order_date
+
+      FROM orders;
+
+- Bu sorgu, "orders" tablosundaki siparişleri tarihlerine göre sıralar ve her bir siparişin önceki sipariş tarihini prev_order_date sütununda gösterir.
+
+- Örneğin, bir şirketin aylık satışlarını takip eden bir "sales" adlı bir tablo var diyelim. Bu tablonun "month" ve "revenue" adında iki sütunu var ve aşağıdaki gibi görünüyor:
+
+         month  | revenue
+
+        --------+---------
+
+         201901 |  100000
+
+         201902 |   90000
+
+         201903 |  110000
+
+         201904 |  120000
+
+         201905 |  130000
+
+- Bu tablodaki her bir ay için, önceki ayın gelirlerine göre ne kadar artış veya azalış olduğunu hesaplamak istiyoruz. Bunu yapmak için, aşağıdaki sorguyu kullanabiliriz:
+
+         Select
+         month,
+         revenue, 
+         LAG(revenue) OVER (
+
+              ORDER BY month
+
+         ) AS prev_month_revenue, 
+
+        revenue - LAG(revenue) OVER (
+
+            ORDER BY month
+
+        ) AS revenue_change
+
+       FROM sales;
+
+       Output:
+
+      month  | revenue | prev_month_revenue | revenue_change
+
+      --------+---------+--------------------+----------------
+
+      201901 |  100000 |               NULL |           NULL
+
+      201902 |   90000 |              100000 |          -10000
+
+      201903 |  110000 |               90000 |           20000
+
+      201904 |  120000 |              110000 |           10000
+
+      201905 |  130000 |              120000 |           10000
+
+
+_LEAD Fonksiyonu_
+
+- LEAD fonksiyonu, bir tablodaki bir sütunun bir sonraki satırdaki değerini döndürür. Bu, LAG fonksiyonunun tam tersidir.
+
+- Bu fonksiyon, özellikle bir tablodaki sütunlardaki değerleri karşılaştırmak ve karşılaştırmalar arasındaki farkları bulmak için kullanışlıdır. Örneğin, bir tablodaki bir sütunun değerlerinin artış hızını veya azalış hızını hesaplamak gibi birçok senaryoda kullanılabilir.
+
+- Örneğin, bir şirketin aylık satışlarını takip eden bir "sales" adlı bir tablo var diyelim. Bu tablonun "month" ve "revenue" adında iki sütunu var ve aşağıdaki gibi görünüyor:
+
+      month  | revenue
+
+      --------+---------
+
+      201901 |  100000
+
+      201902 |   90000
+
+      201903 |  110000
+
+      201904 |  120000
+
+      201905 |  130000
+
+- Bu tablodaki her bir ay için, bir sonraki ayın gelirlerine göre ne kadar artış veya azalış olduğunu hesaplamak istiyoruz. Bunu yapmak için, aşağıdaki sorguyu kullanabiliriz:
+
+        SELECT 
+
+           month, 
+
+           revenue, 
+
+           LEAD(revenue) OVER (
+
+                  ORDER BY month
+
+           ) AS next_month_revenue, 
+
+           LEAD(revenue) OVER (
+
+                  ORDER BY month
+
+           ) - revenue AS revenue_change
+
+        FROM sales;
+
+        Output:
+
+      month  | revenue | next_month_revenue | revenue_change
+
+      --------+---------+--------------------+----------------
+
+      201901 |  100000 |               90000 |          -10000
+
+      201902 |   90000 |              110000 |           20000
+
+      201903 |  110000 |              120000 |           10000
+
+      201904 |  120000 |              130000 |           10000
+
+      201905 |  130000 |                NULL |           NULL
+
+
+_FIRST VALUE Fonksiyonu_
+
+- "FIRST_VALUE" fonksiyonu, bir sütunda bulunan değerlerin ilk değerini döndürür.
+
+- Özellikle, "FIRST_VALUE" fonksiyonu, bir sütundaki değerlerin ilk değerine ihtiyaç duyulan durumlarda kullanışlıdır. Ayrıca, bir sütundaki verileri sıralamak ve ilk değeri belirlemek için de kullanılabilir.
+
+- Örneğin, aşağıdaki sorgu, "employees" tablosundaki departmanlardaki çalışanların maaşlarının ortalamasını ve en yüksek maaşa sahip ilk çalışanın adını listeler:
+
+      SELECT department_id, AVG(salary) AS avg_salary, 
+
+       FIRST_VALUE(first_name || ' ' || last_name) OVER (PARTITION BY department_id ORDER BY salary DESC) AS highest_paid_employee
+
+      FROM employees
+
+      GROUP BY department_id;
+
+- Bu sorgu, "employees" tablosundan verileri alır ve her departman için, "department_id" sütunundaki departman ID'sini, "salary" sütunundaki maaşların ortalamasını ve "FIRST_VALUE" fonksiyonunu kullanarak en yüksek maaşa sahip ilk çalışanın adını belirler.
+
+- "OVER" ifadesi, "PARTITION BY" ifadesi ile birlikte kullanılarak, her departman için ayrı ayrı işlem yapılmasını sağlar. "ORDER BY" ifadesi, "salary" sütununa göre sıralama yaparak, en yüksek maaşa sahip ilk çalışanın adını belirler.
+
+_LAST VALUE Fonksiyonu_
+
+- SQL'deki "LAST_VALUE" fonksiyonu, bir sütunda bulunan değerlerin son değerini döndürür.
+
+- "LAST_VALUE" fonksiyonu, bir sütundaki verileri sıralamak ve son değeri belirlemek için kullanılabilir. Ayrıca, bir sütunda bulunan son değeri diğer değerlerle karşılaştırmak ve karşılaştırma sonucuna göre bir işlem yapmak için de kullanılabilir.
+
+- Örneğin, aşağıdaki sorgu, "sales" tablosundaki satış verilerini alır ve her gün için satış miktarının artış oranını ve son satış miktarını listeler:
+
+        SELECT sale_date, sale_amount, 
+        (sale_amount - LAG(sale_amount, 1, sale_amount) OVER (ORDER BY sale_date)) / LAG(sale_amount, 1, sale_amount) OVER (ORDER BY           sale_date) AS increase_rate,
+        LAST_VALUE(sale_amount) OVER (ORDER BY sale_date) AS last_sale_amount
+        FROM sales;
+- Bu sorgu, "sales" tablosundan verileri alır ve her satış için, "sale_date" sütunundaki satış tarihini, "sale_amount" sütunundaki satış miktarını, "LAG" fonksiyonunu kullanarak önceki satış miktarını belirler.
+
+- "OVER" ifadesi, "ORDER BY" ifadesi ile birlikte kullanılarak, verilerin satış tarihine göre sıralanmasını sağlar.
+
+-  "LAST_VALUE" fonksiyonu, son satış miktarını belirler. Bu örnek, "LAST_VALUE" fonksiyonunun, bir sütundaki son değere ihtiyaç duyulan durumlarda nasıl kullanılabileceğini gösterir.
+    
