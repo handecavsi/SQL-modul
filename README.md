@@ -1068,10 +1068,10 @@ Ayrıca;
             [ROWS frame_specification] 
 
         ) 
-**Window function:** Bir hesaplama yapmak veya analiz etmek için kullanılan özel bir SQL işlevidir. Örnekler arasında SUM, AVG, ROW_NUMBER, RANK, LAG, LEAD ve NTILE sayılabilir.
-**Partition by:** Veri kümesinin bölüneceği sütunlar için bir ifadedir. Bu ifade, her bölme için ayrı bir hesaplama yapmak için kullanılır. Yani, belirli bir sütuna göre gruplandırarak birden fazla pencere oluşturulabilir.
-**Order by:** Veri kümesindeki sıralama sütunlarının bir ifadesidir. Bu ifade, pencere sıralamasını belirlemek için kullanılır. Örneğin, LAG veya LEAD fonksiyonları ile bir önceki veya bir sonraki satıra göre hesaplama yapmak isteyenler için sıralama yapmak önemlidir.
-**Frame specification:** Window function'ın çalıştığı pencerenin boyutunu belirleyen bir ifadedir. Bu ifade, sıradan belirli bir sayıda satır önce ve sonra olacak şekilde belirtilen ROWS BETWEEN ifadesi ile belirlenir. Ayrıca, bir RANGE BETWEEN ifadesi ile belirtilen sürekli bir aralıkta çalıştırılabilir. 
+**Window function:** Bir hesaplama yapmak veya analiz etmek için kullanılan özel bir SQL işlevidir. Örnekler arasında SUM, AVG, ROW_NUMBER, RANK, LAG, LEAD ve NTILE sayılabilir. <br></br>
+**Partition by:** Veri kümesinin bölüneceği sütunlar için bir ifadedir. Bu ifade, her bölme için ayrı bir hesaplama yapmak için kullanılır. Yani, belirli bir sütuna göre gruplandırarak birden fazla pencere oluşturulabilir.  <br></br>
+**Order by:** Veri kümesindeki sıralama sütunlarının bir ifadesidir. Bu ifade, pencere sıralamasını belirlemek için kullanılır. Örneğin, LAG veya LEAD fonksiyonları ile bir önceki veya bir sonraki satıra göre hesaplama yapmak isteyenler için sıralama yapmak önemlidir.  <br></br>
+**Frame specification:** Window function'ın çalıştığı pencerenin boyutunu belirleyen bir ifadedir. Bu ifade, sıradan belirli bir sayıda satır önce ve sonra olacak şekilde belirtilen ROWS BETWEEN ifadesi ile belirlenir. Ayrıca, bir RANGE BETWEEN ifadesi ile belirtilen sürekli bir aralıkta çalıştırılabilir.  <br></br>
 
     | Month | Item  | Amount |
 
