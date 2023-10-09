@@ -1459,7 +1459,7 @@ _LAST VALUE Fonksiyonu_
 -  "LAST_VALUE" fonksiyonu, son satış miktarını belirler. Bu örnek, "LAST_VALUE" fonksiyonunun, bir sütundaki son değere ihtiyaç duyulan durumlarda nasıl kullanılabileceğini gösterir.
     
 
-**Dipnot: Window functions group by'daki bazı kısıtlamaları ortadan kaldırır.*
+**Dipnot: Window functions group by'daki bazı syntax kısıtlamalarını ortadan kaldırır.*
 
 - Örneğin aşağıdaki gibi bir group by sorgusu yazıldığında;
 
@@ -1481,8 +1481,7 @@ hata verecektir. Ya da aşağıdaki gibi bir sorgu yazıldığında;
     from employees
     group by department_id
 
-Gene hata verecektir. Group by ile first_name, last_name isimleri getirilemez. Window fonksiyonları
-bu kısıtları ortadan kaldırmak için kullanışlıdır.
+Gene hata verecektir. Group by ile first_name, last_name isimleri getirmek için WITHCLAUSE ve JOIN işlemleri kullanmak gerekir. Window fonksiyonları bu kısıtları ortadan kaldırmak için kullanışlıdır.
 
     select 
 	    first_name, 
