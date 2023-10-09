@@ -63,3 +63,66 @@ LEAD(bookingdate, 1 , NULL) OVER (PARTITION BY contactid ORDER BY bookingdate ) 
 from booking
 
 
+
+
+--CASES:
+
+select * from employees limit 100
+  
+--1-) first_name, last_name, salary, department_id departman bazında ortalama maaş?
+
+--1.YOL GROUP BY ile:
+WITH avg_salary AS(
+select 
+	department_id,
+	avg(salary) ort_maas
+from employees
+GROUP BY 1
+)
+SELECT 
+	first_name,
+	last_name,
+	ort_maas,
+	a.department_id
+FROM employees e 
+JOIN avg_salary a ON e.department_id = a.department_id
+
+--2.YOL Window function ile:
+SELECT 
+	department_id,
+	first_name,
+	last_name,
+	avg(salary) OVER (PARTITION BY department_id) ort_maas
+FROM employees  
+
+--2-)job_id bazında first_name,last_name,salary,job_id ve o job_id'de kaç kişi çalışır?
+
+--1.YOL GROUPBY
+WITH count_employee as
+(
+	select
+		job_id,
+		count(employee_id) kisi_sayisi
+	from employees
+	GROUP BY 1
+) SELECT 
+		first_name,
+		last_name,
+		salary,
+		e.job_id,
+		kisi_sayisi
+  FROM employees e 
+  JOIN count_employee ce 
+  ON e.job_id = ce.job_id
+
+--2.YOL WINDOW FUNC
+
+select 
+	first_name,
+	last_name,
+	salary,
+	department_id,
+	count(employee_id) OVER (PARTITION BY job_id) kisi_sayisi
+FROM employees
+
+
