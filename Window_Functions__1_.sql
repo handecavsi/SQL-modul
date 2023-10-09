@@ -198,3 +198,18 @@ from employees
 "Shelley"	"Higgins"	11		"1994-06-07"	1	1	1
 "William"	"Gietz"		11		"1994-06-07"	2	1	1
 "Jack"		"Richer"	11		"1994-06-08"	3	3	2
+
+
+--3-)Her müşterinin en düşük ödeme yaptığı gün ve rezervasyon tarihini getirin.
+
+--ROW_NUMBER() ile de yapılabilirdi. Ancak FIRST_VALUE() syntax için daha avantajlıdır.
+	
+select 
+	contactid,
+	bookingdate,
+	paymentdate,
+	amount,
+	FIRST_VALUE(bookingdate) OVER (PARTITION BY contactid order by amount) as least_payment_bookingdate,
+	FIRST_VALUE(paymentdate) OVER (PARTITION BY contactid order by amount) as least_payment_paymentdate
+from booking b 
+join payment p on b.id = p.bookingid
