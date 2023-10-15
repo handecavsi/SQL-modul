@@ -365,3 +365,63 @@ select
 		count(*)
 from all_ages 
 group by company, age_segment
+
+
+--yaş kırılımı sayısı 100'den büyük olanlar nedir?
+--Pratik olarak HAVING kullanarak bulabiliriz. 
+
+with contact_with_company as (
+	select 
+		contactid,
+		company,
+		count(b.id) toplam_ödeme_sayisi,
+		sum(amount) toplam_ödeme_mik	
+	from booking b
+	join payment p 
+	on b.id = p.bookingid
+	where p.paymentstatus = 'ÇekimBaşarılı'
+	group by 1,2
+	order by 1,2
+),
+row_num as (
+select 
+	contactid,
+	company,
+	toplam_ödeme_sayisi,
+	toplam_ödeme_mik,
+	ROW_NUMBER() OVER (PARTITION BY contactid ORDER BY toplam_ödeme_sayisi desc, toplam_ödeme_mik desc) as rn
+from contact_with_company
+),
+contact_comp as (
+	select 
+	contactid,
+	company
+  	from row_num where rn = 1
+), 
+all_ages as (
+	select 
+		cc.contactid,
+		cc.company,
+		extract(year from age(current_date,dateofbirth)) as age
+	from contact_comp as cc
+	join booking b 
+	on cc.contactid = b.contactid
+	join passenger ps 
+	ON ps.booking_id = b.id
+	)
+select 
+	   company,
+	   case
+	   	when age >= 22 AND age < 33 then '22-32'
+	   		when age >= 32 AND age < 43 then '32-42'
+	   			when age >= 42 AND age < 53 then '42-52'
+	   				when age >= 52 AND age < 63 then '52-62'
+	   					when age >= 62 AND age < 73 then '62-72'
+	   						when age >= 72 AND age < 83 then '72-82'
+	   							ELSE '83+' 
+		END as age_segment,
+		count(*)
+from all_ages 
+group by company, age_segment
+HAVING count(*) > 1000
+
