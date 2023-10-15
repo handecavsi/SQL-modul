@@ -213,3 +213,155 @@ select
 	FIRST_VALUE(paymentdate) OVER (PARTITION BY contactid order by amount) as least_payment_paymentdate
 from booking b 
 join payment p on b.id = p.bookingid
+
+
+/*======================================================================================================================*/
+
+
+
+/*Travel veri tabanı içerisinde çeşitli case'ler yapılmıştır:*/
+
+--Kullanıcak tablolar:
+select * from booking
+select * from passenger
+select * from payment
+
+
+--case1: Her müşterinin ilgili rezervasyon tarihi ile iki sonraki rezervasyon tarihini getiriniz.
+
+select contactid,
+	   bookingdate,
+	   LEAD(bookingdate::date,2,NULL) OVER (PARTITION BY contactid ORDER BY bookingdate) next2_bookingdate
+from booking 
+
+--case2: Her müşterinin ilgili rezervasyon tarihi ile iki önceki rezervasyon tarihini getiriniz.
+
+select contactid,
+	   bookingdate,
+	   LAG(bookingdate::date,2,NULL) OVER (PARTITION BY contactid ORDER BY bookingdate) prev2_bookingdate
+from booking 
+
+--case3: Önceki ve sonraki tarihlerin farkını age ile hesaplama:
+
+select bookingdate,
+	   next2_bookingdate,
+	   age(next2_bookingdate,bookingdate) diff_booking_date
+	   FROM
+		(select contactid,
+	   			bookingdate,
+	   			LEAD(bookingdate::date,2,NULL) OVER (PARTITION BY contactid ORDER BY bookingdate) next2_bookingdate
+			from booking) T;
+			
+--case4: gün kırılımda ilgili tarihte en yüksek başarılı ödeme yapılan rezervasyon id'si ile 
+--bu rezervasyonun tüm müşteri bilgilerini getirin (bookingid,bookingdate,contactid,passengerid,
+--passengername,passengergender)
+
+--Kullanıcak tablolar:
+select * from booking --=>bookingdate
+select * from passenger --=>bookingid,bookingdate,contactid,passengerid,
+--passengername,passengergender
+select * from payment --=> paymentstatus
+
+with max_amount as(
+	select 
+		bookingdate::date as bookingdate,
+		b.id,
+		contactid,
+		p.amount,
+		ROW_NUMBER() OVER (PARTITION BY bookingdate::date ORDER BY p.amount desc) as rn
+	from booking b 
+	join payment p
+	on b.id = p.bookingid
+	where p.paymentstatus = 'ÇekimBaşarılı'
+	ORDER BY 1, 4 desc
+) select 
+		 m.bookingdate,
+		 m.amount,
+		 p.dateofbirth,
+		 gender,
+		 name
+		 from max_amount m
+  join passenger p on m.id=p.booking_id
+  where rn=1
+
+
+--case5: Her müşterinin en fazla ödeme yaptığı company'i müşteri company'si olarak belirle.
+
+with contact_with_companies  as
+(	select 
+	contactid,
+	company,
+	count(p.id) as toplam_ödeme_sayisi,
+	sum(amount) as toplam_ödeme_mik
+from booking b
+join payment p on b.id=p.bookingid
+where p.paymentstatus='ÇekimBaşarılı'
+group by 1,2
+order by 1,2),
+row_num as (
+	select 
+		contactid,
+		company,
+		toplam_ödeme_sayisi,
+		toplam_ödeme_mik,
+		ROW_NUMBER() OVER (PARTITION BY contactid ORDER BY toplam_ödeme_sayisi desc, toplam_ödeme_mik desc) as rn
+	from contact_with_companies
+) select contactid,company from row_num where rn=1
+
+
+--case6: Her müşterinin en fazla ödeme yaptığı company'i müşteri company'si olarak belirle.
+--Belirlenen company'lerin yaş kırılımına göre kullanımı nedir?
+
+with contact_with_company as (
+	select 
+		contactid,
+		company,
+		count(b.id) toplam_ödeme_sayisi,
+		sum(amount) toplam_ödeme_mik	
+	from booking b
+	join payment p 
+	on b.id = p.bookingid
+	where p.paymentstatus = 'ÇekimBaşarılı'
+	group by 1,2
+	order by 1,2
+),
+row_num as (
+select 
+	contactid,
+	company,
+	toplam_ödeme_sayisi,
+	toplam_ödeme_mik,
+	ROW_NUMBER() OVER (PARTITION BY contactid ORDER BY toplam_ödeme_sayisi desc, toplam_ödeme_mik desc) as rn
+from contact_with_company
+),
+contact_comp as (
+	select 
+	contactid,
+	company
+  	from row_num where rn = 1
+), 
+all_ages as (
+	select 
+		cc.contactid,
+		cc.company,
+		extract(year from age(current_date,dateofbirth)) as age
+	from contact_comp as cc
+	join booking b 
+	on cc.contactid = b.contactid
+	join passenger ps 
+	ON ps.booking_id = b.id
+	)
+select 
+	   company,
+	   case
+	   	when age >= 22 AND age < 33 then '22-32'
+	   		when age >= 32 AND age < 43 then '32-42'
+	   			when age >= 42 AND age < 53 then '42-52'
+	   				when age >= 52 AND age < 63 then '52-62'
+	   					when age >= 62 AND age < 73 then '62-72'
+	   						when age >= 72 AND age < 83 then '72-82'
+	   							ELSE '83+' 
+		END as age_segment,
+		count(*)
+from all_ages 
+group by company, age_segment
